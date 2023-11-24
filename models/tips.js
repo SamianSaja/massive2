@@ -3,7 +3,7 @@ import db from './../config/db.js'
 const {DataTypes} = Sequelize
 
 const tips = db.define('tips', {
-    contentId: {
+    uuid: {
         type: DataTypes.STRING(10),
         primaryKey: true
     },
@@ -15,7 +15,7 @@ const tips = db.define('tips', {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    fillContent: {
+    fill_content: {
         type: DataTypes.TEXT,
         allowNull: false
     },
@@ -25,7 +25,7 @@ const tips = db.define('tips', {
     }
 
 }, {
-    tableName: 'tipsTriks'
+    tableName: 'tips_triks'
 })
 
 export default tips

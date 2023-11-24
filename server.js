@@ -12,9 +12,10 @@ import inspiration from './routes/inspiration.js';
 import healtyRecept from './routes/healtyRecept.js';
 import user from './routes/user.js';
 
-app.use(cookieParser())
+app.use(cors());
+app.use(cookieParser());
 app.use(express.json()); 
-app.use(cors({ credentials:true, origin: 'http: //localhost:3000' }))
+
 
 app.use(user)
 app.use(listArticle)

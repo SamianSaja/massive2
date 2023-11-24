@@ -1,5 +1,5 @@
 GET http://localhost:5000/users
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJTYW1pYW4gU2FqYSIsImVtYWlsIjoic2Ftc0BnbWFpbC5jb20iLCJpYXQiOjE3MDA0MTM4ODgsImV4cCI6MTcwMDQxMzkwM30.xoCx9S3n1o95Whas4NurdBNranYtma_3Yyl2_Cv8NpA
+Authorization: bearer 
 
 ###
 POST http://localhost:5000/users
@@ -10,7 +10,7 @@ Content-Type: application/json
     "email": "sams@gmail.com",
     "password": "samian",
     "confPassword": "samian",
-    "noHp": 123,
+    "phone_number": 123,
     "img": "art.jpg"
 }
 

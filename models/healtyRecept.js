@@ -3,11 +3,11 @@ import db from './../config/db.js'
 const {DataTypes} = Sequelize
 
 const healtyRecept = db.define('healtyRecept', {
-    contentId: {
+    uuid: {
         type: DataTypes.STRING,
         primaryKey: true
     },
-    foodName: {
+    food_name: {
         type: DataTypes.STRING(50),
         allowNull: false
     },
@@ -15,11 +15,11 @@ const healtyRecept = db.define('healtyRecept', {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    foodMaking: {
+    food_making: {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    receptImage: {
+    img: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -27,7 +27,7 @@ const healtyRecept = db.define('healtyRecept', {
         type: DataTypes.BOOLEAN
     }
 }, {
-    tableName: 'healty-recepts'
+    tableName: 'healty_recepts'
 })
 
 export default healtyRecept

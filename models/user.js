@@ -15,7 +15,7 @@ const user  = db.define('user', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    noHp: {
+    phone_number: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },

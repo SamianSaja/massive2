@@ -3,7 +3,7 @@ import db from './../config/db.js'
 const {DataTypes} = Sequelize
 
 const inspiration = db.define('inspiration', {
-    contentId: {
+    uuid: {
         type: DataTypes.STRING(10),
         primaryKey: true
     },
@@ -15,7 +15,7 @@ const inspiration = db.define('inspiration', {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    fillContent: {
+    fill_content: {
         type: DataTypes.TEXT,
         allowNull: false
     },

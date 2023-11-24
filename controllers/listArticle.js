@@ -24,7 +24,7 @@ controller.searchArticle = async(req, res) => {
     try {
         let response = await model.listArticle.findAll({
             where: {
-                contentId: req.params.contentId
+                uuid: req.params.uuid
             }
         })
         if (response.length > 0) {
@@ -47,10 +47,10 @@ controller.searchArticle = async(req, res) => {
 controller.createArticle = async(req, res) => {
     try {
         await model.listArticle.create({
-            contentId: req.body.contentId,
+            uuid: req.body.uuid,
             title: req.body.title,
             desk: req.body.desk,
-            fillContent: req.body.fillContent,
+            fill_content: req.body.fill_content,
             img: req.body.img
         });
         res.status(201).json({msg: "Article Created"});
@@ -62,14 +62,14 @@ controller.createArticle = async(req, res) => {
 controller.updateArticle = async(req, res) => {
     try {
         await model.listArticle.update({
-            contentId: req.body.contentId,
+            uuid: req.body.uuid,
             title: req.body.title,
             desk: req.body.desk,
-            fillContent: req.body.fillContent,
+            fill_content: req.body.fill_content,
             img: req.body.img
         },{
             where: {
-                contentId: req.params.contentId
+                uuid: req.params.uuid
             }
         });
         res.status(200).json({msg: "Article Updated"});
@@ -82,7 +82,7 @@ controller.deleteArticle = async(req, res) => {
     try {
         await model.listArticle.destroy({
             where: {
-                contentId: req.params.contentId
+                uuid: req.params.uuid
             }
         });
         res.status(200).json({msg: "Article Deleted"});

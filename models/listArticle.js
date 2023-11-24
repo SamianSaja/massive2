@@ -3,7 +3,7 @@ import db from './../config/db.js'
 const {DataTypes} = Sequelize
 
 const listArticle = db.define('listArticle', {
-    contentId: {
+    uuid: {
         type: DataTypes.STRING(10),
         primaryKey: true
     },
@@ -15,7 +15,7 @@ const listArticle = db.define('listArticle', {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    fillContent: {
+    fill_content: {
         type: DataTypes.TEXT,
         allowNull: false
     },
@@ -25,7 +25,7 @@ const listArticle = db.define('listArticle', {
     }
 
 }, {
-    tableName: 'listArticle'
+    tableName: 'list_article'
 })
 
 export default listArticle
