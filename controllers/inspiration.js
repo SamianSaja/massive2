@@ -24,7 +24,7 @@ controller.searchIns = async(req, res) => {
     try {
         let response = await model.inspiration.findAll({
             where: {
-                contentId: req.params.contentId
+                uuid: req.params.uuid
             }
         })
         if (response.length > 0) {
@@ -47,10 +47,10 @@ controller.searchIns = async(req, res) => {
 controller.createIns = async(req, res) => {
     try {
         await model.inspiration.create({
-            contentId: req.body.contentId,
+            uuid: req.body.uuid,
             title: req.body.title,
             desk: req.body.desk,
-            fillContent: req.body.fillContent,
+            fill_content: req.body.fill_content,
             img: req.body.img
         });
         res.status(201).json({msg: "Article Inspiration Created"});
@@ -62,14 +62,14 @@ controller.createIns = async(req, res) => {
 controller.updateIns = async(req, res) => {
     try {
         await model.inspiration.update({
-            contentId: req.body.contentId,
+            uuid: req.body.uuid,
             title: req.body.title,
             desk: req.body.desk,
-            fillContent: req.body.fillContent,
+            fill_content: req.body.fill_content,
             img: req.body.img
         },{
             where: {
-                contentId: req.params.contentId
+                uuid: req.params.uuid
             }
         });
         res.status(200).json({msg: "Inspiration Updated"});
@@ -82,7 +82,7 @@ controller.deleteIns= async(req, res) => {
     try {
         await model.inspiration.destroy({
             where: {
-                contentId: req.params.contentId
+                uuid: req.params.uuid
             }
         });
         res.status(200).json({msg: "Inspiration Deleted"});

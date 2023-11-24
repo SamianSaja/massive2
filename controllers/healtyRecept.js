@@ -24,7 +24,7 @@ controller.searchRecept = async(req, res) => {
     try {
         let response = await model.healtyRecept.findAll({
             where: {
-                contentId: req.params.contentId
+                uuid: req.params.uuid
             }
         })
         if (response.length > 0) {
@@ -47,11 +47,11 @@ controller.searchRecept = async(req, res) => {
 controller.createRecept = async(req, res) => {
     try {
         await model.healtyRecept.create({
-            contentId: req.body.contentId,
-            foodName: req.body.foodName,
+            uuid: req.body.uuid,
+            food_name: req.body.food_name,
             ingredient: req.body.ingredient,
-            foodMaking: req.body.foodMaking,
-            receptImage: req.body.receptImage,
+            food_making: req.body.food_making,
+            img: req.body.img,
             diet: req.body.diet
         });
         res.status(201).json({msg: "Article healty Recept Created"});
@@ -63,11 +63,11 @@ controller.createRecept = async(req, res) => {
 controller.updateRecept = async(req, res) => {
     try {
         await model.healtyRecept.update({
-            contentId: req.body.contentId,
-            foodName: req.body.foodName,
+            uuid: req.body.uuid,
+            food_name: req.body.food_name,
             ingredient: req.body.ingredient,
-            foodMaking: req.body.foodMaking,
-            receptImage: req.body.receptImage,
+            food_making: req.body.food_making,
+            img: req.body.img,
             diet: req.body.diet
         },{
             where: {
@@ -84,7 +84,7 @@ controller.deleteRecept = async(req, res) => {
     try {
         await model.healtyRecept.destroy({
             where: {
-                contentId: req.params.contentId
+                uuid: req.params.uuid
             }
         });
         res.status(200).json({msg: "Article Healty Recept Deleted"});

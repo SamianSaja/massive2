@@ -24,7 +24,7 @@ controller.searchTips = async(req, res) => {
     try {
         let response = await model.tips.findAll({
             where: {
-                contentId: req.params.contentId
+                uuid: req.params.uuid
             }
         })
         if (response.length > 0) {
@@ -47,10 +47,10 @@ controller.searchTips = async(req, res) => {
 controller.createTips = async(req, res) => {
     try {
         await model.tips.create({
-            contentId: req.body.contentId,
+            uuid: req.body.uuid,
             title: req.body.title,
             desk: req.body.desk,
-            fillContent: req.body.fillContent,
+            fill_content: req.body.fill_content,
             img: req.body.img
         });
         res.status(201).json({msg: "Tips and Triks Created"});
@@ -62,14 +62,14 @@ controller.createTips = async(req, res) => {
 controller.updateTips = async(req, res) => {
     try {
         await model.tips.update({
-            contentId: req.body.contentId,
+            uuid: req.body.uuid,
             title: req.body.title,
             desk: req.body.desk,
-            fillContent: req.body.fillContent,
+            fill_content: req.body.fill_content,
             img: req.body.img
         },{
             where: {
-                contentId: req.params.contentId
+                uuid: req.params.uuid
             }
         });
         res.status(200).json({msg: "Tips and Triks Updated"});
@@ -82,7 +82,7 @@ controller.deleteTips= async(req, res) => {
     try {
         await model.tips.destroy({
             where: {
-                contentId: req.params.contentId
+                uuid: req.params.uuid
             }
         });
         res.status(200).json({msg: "Tips and Triks Deleted"});
