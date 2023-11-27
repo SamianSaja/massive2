@@ -1,12 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import { Navbar, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import CtaBtn from "../components/CtaBtn";
 import { CardItem } from "../components/CardItem";
 import { Link } from "react-router-dom";
-
-import { dataArtikel } from "../data/dataArtikel";
 import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -14,18 +12,18 @@ const Artikel = () => {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
-    getArticle()
+    getArticle();
   }, []);
 
   const getArticle = async () => {
     try {
-      axios.get('http://localhost:5000/articles')
-      .then(res => setArticles(res.data.data))
-      .catch(err => console.log(err));
+      axios
+        .get("http://localhost:5000/articles")
+        .then((res) => setArticles(res.data.data))
+        .catch((err) => console.log(err));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
   };
 
   return (
@@ -49,7 +47,7 @@ const Artikel = () => {
           ))}
         </Row>
       </section>
-      <Footer/>
+      <Footer />
     </>
   );
 };
