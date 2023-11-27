@@ -1,0 +1,1151 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;700&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary: #37af3b;
+  --bg-card: #f0f2f9;
+}
+
+.bold {
+  font-weight: bold !important;
+}
+.secondColor {
+  color: #838383 !important;
+}
+.text-justify {
+  text-align: justify;
+}
+
+/* Navbar */
+.navbar {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+.navbar a {
+  text-decoration: none !important;
+  color: rgb(0, 0, 0) !important;
+}
+.logo {
+  width: 100px;
+}
+.navbar #dropdown-item:hover {
+  background-color: var(--color-primary);
+  border-radius: 3px;
+}
+.navbar #btn-sign-up {
+  border-radius: 15px;
+  color: black;
+  background-color: var(--color-primary);
+  font-weight: bold;
+}
+.navbar .active, .link-profil .active {
+  color: var(--color-primary) !important;
+  font-weight: bold;
+}
+/* Navbar end */
+
+/* Header utama*/
+.title-page {
+  margin: 120px 100px 50px;
+}
+.title-page h1 span {
+  color: var(--color-primary);
+}
+
+/* Header halaman detail */
+.title-page-detail {
+  margin-top: 120px;
+  margin-right: 100px;
+  padding-left: 100px;
+}
+
+/* Section Card utama */
+.content-card-utama {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+/* ContentCard Component */
+.bg-card {
+  background-color: var(--bg-card) !important;
+  width: 23rem !important;
+  padding: 0 !important;
+  margin: 0 17px 65px !important;
+  border-radius: 20px !important;
+}
+.card-img {
+  border-top-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+}
+
+/* Tombol baca lebih lanjut */
+.cta-card {
+  border-radius: 15px !important;
+  color: #fff !important;
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+
+.content-detail {
+  padding-left: 100px !important;
+  padding-right: 100px !important;
+}
+.content-detail .img-detail {
+  border-radius: 20px !important;
+}
+
+/* Tombol share */
+.icon-share {
+  width: 40px;
+  height: 40px;
+}
+.btn-share {
+  width: 100%;
+  background-color: var(--color-primary) !important;
+  border-radius: 20px !important;
+}
+.icon-share:hover {
+  cursor: pointer;
+}
+
+/* .card-small {
+  width: 450px;
+} */
+
+/* Halaman detail */
+.text-detail {
+  text-indent: 2em;
+}
+.detail-bahan {
+  margin-left: 50px;
+  background-color: var(--bg-card);
+  border-radius: 20px;
+}
+.detail-card {
+  background-color: var(--bg-card);
+}
+
+/* syarat ketentuan di footer */
+.container-syarat, .container-kebijakan {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+
+/* ===NEW=== */
+/* style Modal start */
+.modal-confirm img {
+  width: 350px;
+  height: 320px;
+  margin-bottom: 20px;
+}
+.modal-confirm {
+  position: relative;
+}
+.modal-ask {
+  width: 100%;
+  margin-top: -140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+}
+.modal-ask p {
+  font-size: 18px;
+  font-weight: bold;
+}
+.modal-simpan {
+  background-color: #28a745;
+  color: #fff;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+}
+.modal-simpan:hover {
+  background-color: #218838;
+}
+/* style Modal end  */
+
+
+/* style Beranda start */
+.content {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+.row-content {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: 100%;
+  height: 100vh;
+  padding-top: 50px;
+  padding-left: 60px;
+}
+.row-content h2 {
+  width: 600px;
+  font-size: 50px;
+}
+.row-content p {
+  margin-top: 15px;
+  max-width: 250px;
+  font-size: 20px;
+}
+.text-content {
+  height: 350px;
+  margin-left: 50px;
+}
+.text-content h2 {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+.col-img img {
+  height: 440px;
+}
+
+/* style informatif */
+.informatif {
+  position: relative;
+}
+.content-informatif {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: 100%;
+  padding-top: 40px;
+  height: 0;
+}
+
+/* style card swipper */
+.swiper {
+  margin-top: -160px;
+  width: 50%;
+  height: 60%;
+}
+.title-swipe h6 {
+  font-size: 18px;
+}
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card-swipe {
+  position: relative;
+  z-index: 4;
+}
+.card-body-swiper {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.card-body-swiper p {
+  background-color: white;
+  padding: 1px 4px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+/* style jelajah */
+.row-jelajah div {
+  box-shadow: 0px 0px 1px 1px rgba(59, 58, 58, 0.2);
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.row-jelajah div:hover {
+  box-shadow: 0px 0px 1px 1px rgba(59, 58, 58, 0.3);
+  cursor: pointer;
+  transform: translateY(-5px);
+}
+.row-jelajah img {
+  margin-top: 10px;
+  width: 60px;
+  height: auto;
+}
+.row-jelajah p {
+  font-size: 9px;
+}
+
+/* Beranda style resep  */
+.resep {
+  margin-top: 80px;
+  width: 100%;
+  height: 100vh;
+  background-color: #101820;
+}
+.resep h4 {
+  margin-top: 20px;
+  max-width: 500px;
+  color: #fff;
+  text-align: center;
+}
+.resep p {
+  border-radius: 10px;
+  width: 140px;
+  background-color: var(--color-primary);
+  margin-top: 10px;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 6px;
+}
+.card-resep {
+  margin-top: -480px;
+  width: 100%;
+}
+.card-resep2 {
+  width: 85%;
+}
+.card-resep h5 {
+  font-size: 15px;
+}
+.card-resep p {
+  font-size: 13px;
+}
+.card-content {
+  width: 88%;
+}
+.bg-resep {
+  margin-top: -350px;
+}
+.bg-resep img {
+  width: 100%;
+  height: auto;
+}
+
+/* tips trik beranda */
+.tips-trik p {
+  margin: 20px 250px;
+}
+.tips-trik h3 {
+  color: var(--color-primary);
+}
+.tips-card {
+  position: relative;
+}
+.tips-content {
+  position: absolute;
+  top: 62%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1;
+}
+.tips-content button {
+  color: #fff;
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  border: thin solid #fff;
+  padding: 1px 10px;
+  margin: 12px 5px;
+  font-size: 15px;
+}
+.tips-button {
+  background-color: transparent;
+}
+.tips-button:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  transition: all ease-in-out 0.3s;
+}
+.lihat-all button {
+  background-color: var(--color-primary);
+  border-radius: 20px;
+  border: thin solid #fff;
+  color: #fff;
+  padding: 5px 16px;
+}
+.lihat-all img {
+  margin: 0px 0px 0px 10px;
+  height: 13px;
+  width: 15px;
+}
+
+/* style inspirasi  */
+.inspirasi-card {
+  position: relative;
+}
+.inspirasi-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.inspirasi-content {
+  position: absolute;
+  bottom: 0;
+  margin: 0px 20px 0px 0px;
+  width: 91%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  color: #fff;
+  border-radius: 0px 0px 8px 8px;
+}
+.inspirasi-content h5,
+.inspirasi-content p {
+  margin: 0;
+}
+.inspirasi-content p {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+/* login */
+.Container {
+  overflow: hidden;
+}
+.img-fluid {
+  height: 100vh;
+  width: 100%;
+  object-fit: cover;
+}
+.FormContainer {
+  padding-top: 75px;
+}
+.iconback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.iconback1 {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: rgba(59, 58, 58, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.iconback1:hover {
+  background-color: var(--color-primary);
+  transition: all ease-in-out 0.4s;
+}
+.iconback img {
+  padding: 2px;
+  width: 17px;
+  height: 22px;
+}
+.Form {
+  width: 100%;
+  margin-top: 10px;
+  padding: 20px 120px;
+  line-height: 50px;
+}
+.Form label {
+  font-weight: bold;
+}
+.Form .form-group {
+  margin-bottom: 20px;
+}
+.Form .btn-primary {
+  width: 100%;
+  background-color: var(--color-primary);
+  border: none;
+}
+.login-form {
+  position: relative;
+}
+.login-form input {
+  border-radius: 10px;
+  width: 100%;
+  padding: 0px 35px;
+  margin: 18px 0px;
+}
+.icon-form {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.icon-hide {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.icon-form img {
+  width: 24px;
+  margin: 0px 5px;
+}
+
+/* Optional: Add some spacing between the image and the input */
+.form-group {
+  padding-left: 30px;
+}
+.form-control {
+  border: 0;
+  border-radius: 0;
+}
+.Form .btn-primary:hover {
+  background-color: #45a049;
+}
+.Form .text-muted a {
+  color: #007bff;
+}
+.Form .text-muted a:hover {
+  color: #0b63d0;
+}
+.Form .text-muted {
+  margin-top: -25px;
+}
+.text-punya {
+  margin-top: -15px;
+}
+.form-button {
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 10px;
+  background-color: var(--color-primary);
+  border: hidden;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+}
+.form-button:hover {
+  background-color: #45a049;
+  transition: all ease-in-out 0.3s;
+}
+.text-punya .daftar {
+  color: var(--color-primary);
+}
+.text-punya .daftar:hover {
+  color: #30a335;
+}
+
+/* style Form Register start */
+.form-regis {
+  border: thin solid black;
+  margin: 15px 0px;
+  border-radius: 10px;
+}
+.form-regis img {
+  width: 25px;
+  height: 25px;
+}
+.form-regis p {
+  font-size: 20px;
+}
+.form-regis:hover {
+  cursor: pointer;
+}
+.regisor {
+  display: flex;
+  align-items: center;
+}
+.regisor span {
+  flex: 1;
+  border-top: 1px solid #000;
+  margin: 0 10px;
+}
+.regisor p {
+  margin: 0 5px;
+}
+.regis-form input {
+  width: 100%;
+  border-radius: 10px;
+}
+.regis-form label {
+  font-weight: 0;
+}
+
+/* style Login with telephone start */
+.formtelp {
+  padding-top: 45px;
+}
+
+/* style Verifikasi telp start */
+.regverif {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  margin-top: 95px;
+}
+.verif {
+  width: 450px;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.verif-content {
+  text-align: center;
+  width: 80%;
+  position: absolute;
+  top: 71%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.verif-input {
+  display: flex;
+  margin: 0px 40px;
+  justify-content: center;
+  align-items: center;
+}
+.verif-content p {
+  font-size: 13px;
+}
+.verif-content span {
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  font-weight: bold;
+}
+.verif-content span:hover {
+  color: white;
+  transition: all ease-in-out 0.3s;
+}
+.verif-content input {
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  border: 0;
+  height: 46px;
+}
+.verif-content button {
+  margin-top: 25px;
+  border: 0;
+  border-radius: 10px;
+  padding: 4px 20px;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+.verif-content button:hover {
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: bold;
+  transition: all ease-in-out 0.3s;
+  border: thin solid rgba(255, 255, 255, 0.3);
+}
+.verif img {
+  width: 450px;
+  height: 550px;
+}
+/* style Verifikasi telp end */
+
+/* Style Halaman Profil start */
+.profil {
+  height: 60vh;
+}
+.link-profil li {
+  margin: 5px 0px;
+  list-style: none;
+  display: block;
+  padding: 15px 0px;
+  box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.1);
+}
+.link-profil li a {
+  text-decoration: none;
+  color: gray;
+  font-size: 16px;
+  padding: 0px 5px;
+}
+.link-profil li a:hover {
+  color: var(--color-primary);
+  font-weight: bold;
+  transition: all ease-in-out 0.5s;
+}
+
+/* style edit profil */
+.profile-image img {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+.profil label {
+  font-size: 15px;
+}
+.profil input {
+  width: 100%;
+  border-radius: 10px;
+  padding: 8px 6px;
+  border: thin solid rgba(0, 0, 0, 0.2);
+}
+.form-profil {
+  margin: 25px 0 10px 0;
+}
+.form-profil h6 {
+  font-size: 15px;
+}
+.form-profil button {
+  border-radius: 10px;
+  background-color: var(--color-primary);
+  color: white;
+  padding: 0 15px;
+  border: 0;
+}
+.form-profil button:hover {
+  background-color: #26982c;
+  transition: all ease-in-out 0.3s;
+}
+.profil .simpan {
+  margin-top: 18px;
+  width: 100%;
+  border-radius: 10px;
+  background-color: var(--color-primary);
+  border: 0;
+  color: white;
+  padding: 8px 6px;
+}
+.profil .simpan:hover {
+  background-color: #26982c;
+}
+.select-img h6 {
+  margin-top: -15px;
+}
+.ubah {
+  position: relative;
+}
+.ubah input {
+  border: 0;
+  outline: none;
+  margin-left: 40px;
+}
+.text-ubah {
+  width: 100px;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--color-primary);
+  padding: 8px 0;
+  margin-top: -10px;
+}
+.text-ubah:hover {
+  color: #26982c;
+}
+.popup button {
+  border-radius: 10px;
+  background-color: var(--color-primary);
+  padding: 0px 10px;
+  margin: 0 8px;
+  border: 0;
+  color: white;
+}
+
+/* Style Halaman Kata Sandi start */
+.sandi input {
+  margin: 15px 0px;
+}
+/* Style Halaman Kata Sandi end */
+
+/* Style Halaman Tersimpan start */
+.tersimpan img {
+  width: 135px;
+  height: auto;
+}
+.content-tersimpan {
+  height: 100%;
+}
+.content-tersimpan button {
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  color: white;
+  padding: 0 12px;
+  border: 0;
+  width: 100%;
+}
+.content-tersimpan button:hover {
+  background-color: #26982c;
+  transition: all ease-in-out 0.3s;
+}
+/* Style Halaman Tersimpan end */
+
+/* Footer */
+.Footer {
+  /* margin-top: 20px; */
+  background-color: #172617;
+}
+.Footer-content {
+  margin: 100px 50px 0px 50px;
+}
+.Footer-content p {
+  color: #fff;
+  font-size: 13px;
+}
+
+/* Admin */
+/* Style admin add artikel start*/
+.tambah-menu {
+  box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.3);
+  height: auto;
+  background-color: var(--color-primary);
+}
+.tambah li {
+  list-style: none;
+  margin: 15px 0;
+  padding: 8px 5px;
+}
+.tambah li a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+}
+.tambah li a:hover {
+  color: white;
+  transition: all ease-in-out 0.3s;
+}
+
+.form-container {
+  width: 85%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 10px auto;
+}
+.form-container h3 {
+  color: var(--color-primary);
+}
+.form-container span {
+  color: black;
+}
+.form-container input,
+textarea {
+  border-radius: 10px;
+  border: thin solid rgba(0, 0, 0, 0.2);
+  margin: 8px 0;
+}
+.form-control:focus {
+  border-color: var(--color-primary);
+  box-shadow: var(--color-primary);
+}
+
+.img-thumbnail {
+  border: none;
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.text-danger {
+  color: red;
+  cursor: pointer;
+}
+
+.input-gambar .browse {
+  border: 2px dashed var(--color-primary);
+  padding: 30px 40px;
+  border-radius: 5px;
+}
+.browse label:hover {
+  color: var(--color-primary);
+  transition: all ease 0.3s;
+}
+
+.button button {
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  padding: 8px 50px;
+  margin: 15px 0;
+  border: none;
+  color: white;
+}
+.button button:hover {
+  background-color: #3a974e;
+  transition: all ease-in-out 0.3s;
+}
+.add-active {
+  color: white !important;
+  font-weight: bold;
+}
+
+/* Style admin add artikel end*/
+
+/* style tabel admin artikel start */
+.admin-tambah {
+  margin-top: 30px;
+  background-color: var(--color-primary);
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: white;
+  width: 210px;
+}
+.admin-tambah:hover {
+  background-color: rgb(29, 160, 27);
+  transition: all ease-in-out 0.3s;
+}
+
+.admin-tambah button {
+  border: 0;
+  background: transparent;
+  color: white;
+}
+/* style tabel admin artikel end */
+
+
+
+
+
+@media only screen and (max-width: 767px) {
+  .detail-img img{
+    width: 125px !important;
+  }
+
+  .detail-card p{
+    font-size: 10px;
+  }
+
+  .cta-card{
+    /* width: 100px; */
+    font-size: 8px !important;
+    margin-bottom: 10px;
+  }
+
+  .text-detail p, .text-list ul, .detail-bahan ul {
+    font-size: 12px !important;
+  }
+
+  .detail-bahan{
+    margin-left: 0px;
+  }
+
+  .judul-bahan h3{
+    margin-left: -155px;
+  }
+
+
+
+  /* Beranda */
+  .content {
+    height: 40vh;
+  }
+  .row-content h2 {
+    width: 160px;
+    font-size: 15px;
+  }
+  .col-img img {
+    height: 130px;
+    width: 100%;
+    object-fit: contain;
+    margin-top: -370px;
+  }
+  .row-content p {
+    margin-top: 0;
+    max-width: 150px;
+    font-size: 12px;
+  }
+  .row-content h5 {
+    font-size: 13px;
+    margin-top: -8px;
+  }
+  .text-content {
+    margin-top: -150px;
+    margin-left: -15px;
+  }
+
+  /* style responsive informatif */
+  .bg-informatif img {
+    width: 100%;
+    height: 115px;
+  }
+  .content-informatif {
+    height: 40vh;
+  }
+
+  .content-informatif h3 {
+    font-size: 1.3rem;
+    margin-top: -30px;
+  }
+
+  .content-informatif img {
+    height: 20px;
+    width: 20px;
+    margin: 0px 2px;
+  }
+  .content-informatif p {
+    font-size: 12px;
+    padding-left: 3px;
+  }
+  .row-informatif {
+    width: 80%;
+  }
+
+  /* Card Swiper */
+  .swiper {
+    margin-top: -35px;
+    width: 75%;
+    height: 100%;
+  }
+  .title-swipe h5 {
+    font-size: 15px;
+  }
+  .card-body-swiper {
+    display: flex;
+    position: absolute;
+    bottom: -10px;
+    z-index: 1;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .card-body-swiper p {
+    background-color: white;
+    border-radius: 10px;
+    font-size: 5px;
+  }
+
+  /* Jelajah */
+  .row-jelajah img {
+    margin-top: 10px;
+    width: 30px;
+    height: auto;
+  }
+  .row-jelajah p {
+    font-size: 5px;
+  }
+
+  /* Beranda resep */
+  .card-content img {
+    width: 100%;
+    height: auto;
+  }
+  .card-content {
+    width: 150px;
+    margin: 10px 0px;
+  }
+  .resep {
+    margin-top: 35px;
+    width: 100%;
+    height: 55vh;
+    background-color: black;
+  }
+  .resep h4 {
+    font-size: 20px;
+    margin: 15px 15px 12px 12px;
+  }
+  .bg-resep {
+    margin-top: -695px;
+  }
+  .bg-resep img {
+    width: 100%;
+    height: auto;
+  }
+  .card-resep {
+    margin-top: -240px;
+  }
+
+
+  /* Beranda tips & trik */
+  .tips-trik {
+    margin-top: 620px;
+  }
+  .tips-trik p {
+    margin: 20px 20px;
+  }
+  .tips-card {
+    /* margin: 20px 0px; */
+
+    /* width: 40% !important; */
+    margin-bottom: 20px !important;
+  }
+
+  .tips-content {
+    position: absolute;
+    top: 62%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1;
+  }
+
+
+  .imgbuttontips {
+    margin-top: 40px;
+  }
+  .imgbuttontips img {
+    height: 50px;
+  }
+
+
+  /* Beranda inspirasi */
+  .inspirasi p {
+    font-size: 12px;
+  }
+  .inspirasi {
+    margin-top: 10px;
+  }
+
+  .inspirasi-card {
+    margin: 15px 0px;
+    width: 50% !important;
+  }
+
+  .inspirasi-content{
+    width: 88% !important;
+  }
+  /* .inspirasi-card img {
+    width: 50% !important;
+  } */
+
+
+  /* Form Login */
+  .FormContainer {
+    border-radius: 0;
+    box-shadow: none;
+    position: relative;
+    top: 0;
+    padding-top: 0;
+  }
+  .Form {
+    background: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    top: -325px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 300px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  }
+  .form-regis p {
+    font-size: 10px;
+    margin-top: 15px;
+  }
+
+  /* Login with telephone */
+  .formtelp {
+    border-radius: 0;
+    box-shadow: none;
+    position: relative;
+    top: 0;
+    padding-top: 0;
+  }
+
+  /* Profil */
+  .profil {
+    height: 45vh;
+  }
+
+  /* Footer */
+  .Footer-content p {
+    color: #fff;
+    font-size: 8px;
+    margin: 20px 0px;
+  }
+  .Footer-content {
+    margin: 30px 50px 0px 50px;
+  }
+
+}
