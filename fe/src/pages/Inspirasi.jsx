@@ -1,3 +1,5 @@
+import axios from 'axios';
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { Row } from "react-bootstrap";
 import CtaBtn from "../components/CtaBtn";
@@ -8,6 +10,23 @@ import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const Inspirasi = () => {
+  const [ins, setIns] = useState([]);
+
+  useEffect(() => {
+    getIns()
+  }, []);
+
+  const getIns = async () => {
+    try {
+      axios.get('http://localhost:5000/ins')
+      .then(res => setIns(res.data.data))
+      .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
+
   return (
     <>
     <NavbarComponent />
@@ -19,12 +38,12 @@ const Inspirasi = () => {
       <section className="content-card-utama">
         <Row className="d-flex justify-content-center">
 
-          {dataInspirasi.map((data, index) => (
+          {ins.map((data, index) => (
             <CardItem
               key={index}
-              imgCard={data.imgCard}
+              imgCard={data.img}
               title={data.title}
-              text={data.text}
+              text={data.desk}
             >
               <Link to={data.url}>
               <CtaBtn />

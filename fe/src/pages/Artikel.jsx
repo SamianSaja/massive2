@@ -1,3 +1,5 @@
+import axios from 'axios';
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { Navbar, Row } from "react-bootstrap";
 import CtaBtn from "../components/CtaBtn";
@@ -9,6 +11,23 @@ import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const Artikel = () => {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    getArticle()
+  }, []);
+
+  const getArticle = async () => {
+    try {
+      axios.get('http://localhost:5000/articles')
+      .then(res => setArticles(res.data.data))
+      .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
+
   return (
     <>
       <NavbarComponent />
@@ -16,14 +35,14 @@ const Artikel = () => {
 
       <section className="content-card-utama">
         <Row className="d-flex justify-content-center">
-          {dataArtikel.map((data, index) => (
+          {articles.map((data, index) => (
             <CardItem
               key={index}
-              imgCard={data.imgCard}
+              imgCard={data.img}
               title={data.title}
-              text={data.text}
+              text={data.desk}
             >
-              <Link to={data.url}>
+              <Link to={`/DArtikel1/${data.uuid}`}>
                 <CtaBtn />
               </Link>
             </CardItem>
