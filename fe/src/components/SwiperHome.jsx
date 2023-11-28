@@ -55,17 +55,14 @@ const SwiperHome = () => {
         <div>
           {Cardswipe.map((card) => (
             <SwiperSlide>
-              <div className="card-swipe" key={card.id}>
-                <img src={card.images} alt="Gambar Card" />
-                <div className="card-body-swiper">
-                  <Link
-                    to={card.url}
-                    className="text-decoration-none text-dark"
-                  >
+              <Link to={card.url} className=" text-dark">
+                <div className="card-swipe" key={card.id}>
+                  <img src={card.images} alt="Gambar Card" />
+                  <div className="card-body-swiper ">
                     <p className=" fw-bolder">{card.desc}</p>
-                  </Link>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </SwiperSlide>
           ))}
         </div>
