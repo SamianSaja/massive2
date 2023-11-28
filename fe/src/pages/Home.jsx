@@ -8,8 +8,6 @@ import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-
 const Home = () => {
   useEffect(() => {
     const elements = document.querySelectorAll(".animate-on-scroll");
