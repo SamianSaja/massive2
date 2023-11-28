@@ -41,7 +41,8 @@
   background-color: var(--color-primary);
   font-weight: bold;
 }
-.navbar .active, .link-profil .active {
+.navbar .active,
+.link-profil .active {
   color: var(--color-primary) !important;
   font-weight: bold;
 }
@@ -89,7 +90,6 @@
   border-color: var(--color-primary) !important;
 }
 
-
 .content-detail {
   padding-left: 100px !important;
   padding-right: 100px !important;
@@ -130,11 +130,11 @@
 }
 
 /* syarat ketentuan di footer */
-.container-syarat, .container-kebijakan {
+.container-syarat,
+.container-kebijakan {
   margin-left: 50px;
   margin-right: 50px;
 }
-
 
 /* ===NEW=== */
 /* style Modal start */
@@ -174,7 +174,6 @@
   background-color: #218838;
 }
 /* style Modal end  */
-
 
 /* style Beranda start */
 .content {
@@ -894,38 +893,34 @@ textarea {
 }
 /* style tabel admin artikel end */
 
-
-
-
-
 @media only screen and (max-width: 767px) {
-  .detail-img img{
+  .detail-img img {
     width: 125px !important;
   }
 
-  .detail-card p{
+  .detail-card p {
     font-size: 10px;
   }
 
-  .cta-card{
+  .cta-card {
     /* width: 100px; */
     font-size: 8px !important;
     margin-bottom: 10px;
   }
 
-  .text-detail p, .text-list ul, .detail-bahan ul {
+  .text-detail p,
+  .text-list ul,
+  .detail-bahan ul {
     font-size: 12px !important;
   }
 
-  .detail-bahan{
+  .detail-bahan {
     margin-left: 0px;
   }
 
-  .judul-bahan h3{
+  .judul-bahan h3 {
     margin-left: -155px;
   }
-
-
 
   /* Beranda */
   .content {
@@ -1046,7 +1041,6 @@ textarea {
     margin-top: -240px;
   }
 
-
   /* Beranda tips & trik */
   .tips-trik {
     margin-top: 620px;
@@ -1070,14 +1064,12 @@ textarea {
     z-index: 1;
   }
 
-
   .imgbuttontips {
     margin-top: 40px;
   }
   .imgbuttontips img {
     height: 50px;
   }
-
 
   /* Beranda inspirasi */
   .inspirasi p {
@@ -1092,13 +1084,12 @@ textarea {
     width: 50% !important;
   }
 
-  .inspirasi-content{
+  .inspirasi-content {
     width: 88% !important;
   }
   /* .inspirasi-card img {
     width: 50% !important;
   } */
-
 
   /* Form Login */
   .FormContainer {
@@ -1147,5 +1138,35 @@ textarea {
   .Footer-content {
     margin: 30px 50px 0px 50px;
   }
-
 }
+
+/* style animasi home */
+.animate-on-scroll {
+  transition: opacity 0.8s, transform 0.8s;
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.animate-on-scroll:hover {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.row-informatif img {
+  max-width: 100%;
+  height: auto;
+}
+
+#animated-text span {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#animated-text span.fade-in {
+  opacity: 1;
+}
+
+/* Sesuaikan gaya yang lain sesuai kebutuhan proyek Anda */

@@ -6,8 +6,96 @@ import CardInspirasi from "../components/CardInspirasi";
 import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 const Home = () => {
+  useEffect(() => {
+    const elements = document.querySelectorAll(".animate-on-scroll");
+
+    elements.forEach((element) => {
+      element.style.opacity = "0";
+      element.style.transform = "translateY(20px)";
+    });
+
+    const handleScroll = () => {
+      elements.forEach((element) => {
+        const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (rect.top < windowHeight * 0.8 && rect.bottom >= 0) {
+          if (!element.classList.contains("visible")) {
+            element.style.opacity = "1";
+            element.style.transform = "translateY(0)";
+            element.classList.add("visible");
+          }
+        } else {
+          if (element.classList.contains("visible")) {
+            element.style.opacity = "0";
+            element.style.transform = "translateY(20px)";
+            element.classList.remove("visible");
+          }
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // code let's go
+  const [animatedText, setAnimatedText] = useState("");
+
+  useEffect(() => {
+    const targetText = "Let's go!";
+
+    let index = 0;
+
+    const intervalId = setInterval(() => {
+      if (index <= targetText.length) {
+        setAnimatedText(targetText.slice(0, index));
+        index++;
+      } else {
+        clearInterval(intervalId);
+        setTimeout(() => {
+          setAnimatedText("");
+          animateText();
+        }, 1000);
+      }
+    }, 100);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const animateText = () => {
+    let index = 0;
+    const targetText = "Let's go!";
+    const textContainer = document.getElementById("animated-text");
+
+    const fadeIn = () => {
+      if (index <= targetText.length) {
+        const char = targetText[index];
+        const span = document.createElement("span");
+        span.textContent = char;
+        span.classList.add("fade-in");
+        textContainer.appendChild(span);
+        index++;
+        setTimeout(fadeIn, 100);
+      } else {
+        setTimeout(() => {
+          textContainer.innerHTML = "";
+          animateText();
+        }, 1000);
+      }
+    };
+
+    fadeIn();
+  };
+
+  // code let's go end
+
   return (
     <>
       <NavbarComponent />
@@ -33,7 +121,9 @@ const Home = () => {
                 <span>di DishFit.</span>
               </h2>
               <p>Nikmati sesuatu yang baru tanpa batas.</p>
-              <h5 className="fw-bold pt-lg-3">Let's go!</h5>
+              <h5 id="animated-text" className="fw-bold pt-lg-3">
+                {animatedText}
+              </h5>
             </div>
           </Col>
           <Col className="col-lg-6 ms-lg-5  col-sm-12 d-flex align-items-center justify-content-center ">
@@ -43,7 +133,7 @@ const Home = () => {
           </Col>
         </Row>
       </div>
-      <div className="informatif">
+      <div className="informatif animate-on-scroll">
         <div className="bg-informatif">
           <img
             src="/img/imghome/imghome3.png"
@@ -61,7 +151,7 @@ const Home = () => {
                 <img src="/img/imghome/iconhealth.png" alt="health" />
                 <p className="my-auto">Healthier</p>
               </Col>
-              <Col className="d-flex mt-lg-4 gap-lg-3 fs-5 text-white ">
+              <Col className="d-flex mt-lg-4 ms-lg-5 gap-lg-3 fs-5 text-white ">
                 <img src="/img/imghome/iconfit.png" alt="fit" />
                 <p className="my-auto">Fit</p>
               </Col>
@@ -73,7 +163,9 @@ const Home = () => {
           </Container>
         </div>
       </div>
-      <SwiperHome />
+      <div className="swiper-home animate-on-scroll">
+        <SwiperHome />
+      </div>
       <div className="title-swipe">
         <h5 className="fw-bold d-flex justify-content-center align-items-center mt-4 mt-lg-5">
           Menjelajah Dunia Sehat
@@ -131,24 +223,26 @@ const Home = () => {
         <div className="w-100 mt-lg-5 mt-3"></div>
       </div>
       <div>
-        <div className="resep">
-          <div className="d-flex justify-content-center align-items-center">
+        <div className="resep mb-lg-5">
+          <div className="d-flex justify-content-center align-items-center animate-on-scroll">
             <h4 className="fs-3 bold">
               Variasi resep masakan yang sehat, simpel dan mudah untuk Anda.
             </h4>
           </div>
-          <div className="d-flex justify-content-center align-items-center">
+          <div className="d-flex justify-content-center align-items-center animate-on-scroll ">
             <Link to="/resep" className="text-decoration-none">
               <p className="text-center">Lihat Semua Resep</p>
             </Link>
           </div>
         </div>
-        <CardResep />
+        <div className="animate-on-scroll ">
+          <CardResep />
+        </div>
         <div className="bg-resep">
           <img src="/img/imghome/bgresep.png" alt="hay" />
         </div>
       </div>
-      <div>
+      <div className="animate-on-scroll">
         <div className="tips-trik w-100 ">
           <h3 className="text-center fw-bold">Tips & Trik</h3>
           <p className="text-center ">
@@ -158,7 +252,9 @@ const Home = () => {
           </p>
         </div>
       </div>
-      <CardTips></CardTips>
+      <div className="animate-on-scroll">
+        <CardTips></CardTips>
+      </div>
       <div className="lihat-all d-flex w-100 justify-content-center align-items-center mt-lg-4">
         <Link to="/tips">
           <button>
@@ -183,7 +279,7 @@ const Home = () => {
             </Link>
           </div>
         </div>
-        <div>
+        <div className="animate-on-scroll">
           <CardInspirasi />
         </div>
       </div>
