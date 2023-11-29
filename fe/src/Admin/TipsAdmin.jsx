@@ -7,15 +7,15 @@ const isitabel = [
   {
     id: 1,
     judul: "Menyimpan Bumbu Dapur agar Awet",
-    tggl: "2023-11-24",
-    desc: "Menyimpan bumbu dapur dengan tepat menjaga kebersihan dapur dan meningkatkan daya tahan bumbu.",
+    desc: "Menyimpan Bumbu-bumbu",
+    tips: "Menyimpan bumbu dapur dengan tepat menjaga kebersihan dapur dan meningkatkan daya tahan bumbu.",
     img: "/img/tips/1.png",
   },
   {
     id: 2,
     judul: "Tips Membuat Anak Menyukai Makanan Sehat",
-    tggl: "2023-11-24",
-    desc: "Temukan cara mudah dan efektif mengajarkan anak mencintai makanan sehat dengan tips menyenangkan dan bermanfaat!",
+    desc: "Upaya anak menyukai makanan sehat",
+    tips: "Temukan cara mudah dan efektif mengajarkan anak mencintai makanan sehat dengan tips menyenangkan dan bermanfaat!",
     img: "/img/tips/2.png",
   },
 ];
@@ -69,8 +69,8 @@ const TipsAdmin = () => {
                   <thead>
                     <tr>
                       <th style={{ width: "12%" }}>Judul</th>
-                      <th style={{ width: "10%" }}>Tanggal</th>
-                      <th style={{ width: "37%" }}>Deskripsi</th>
+                      <th style={{ width: "10%" }}>Deskripsi</th>
+                      <th style={{ width: "37%" }}>Tips</th>
                       <th style={{ width: "15%" }}>Gambar</th>
                       <th style={{ width: "15%" }}>Pilihan</th>
                     </tr>
@@ -79,8 +79,8 @@ const TipsAdmin = () => {
                     {isitabel.map((tips) => (
                       <tr key={tips.id}>
                         <td>{tips.judul}</td>
-                        <td>{tips.tggl}</td>
-                        <td className="">{tips.desc}</td>
+                        <td>{tips.desc}</td>
+                        <td className="">{tips.tips}</td>
                         <td>
                           <img
                             src={tips.img}

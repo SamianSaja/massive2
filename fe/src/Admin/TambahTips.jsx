@@ -112,14 +112,15 @@ const TambahTips = () => {
 
                 <div className="mb-3">
                   <label htmlFor="post-date" className="form-label">
-                    Tanggal Post:
+                    Deskripsi
                   </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id="post-date"
-                    name="post-date"
-                  />
+                  <textarea
+                    placeholder="isi deskripsi"
+                    className="form-control border border-2 rounded-1"
+                    id="article-content"
+                    name="article-content"
+                    rows="8"
+                  ></textarea>
                 </div>
 
                 <div className="mb-3">

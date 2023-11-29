@@ -7,15 +7,17 @@ const isitabel = [
   {
     id: 1,
     judul: "Pola Makan Sehat",
-    tggl: "2023-11-24",
-    desc: "Upaya membiasakan anak-anak dengan makanan sehat ini harus dimulai sejak dini dengan memberikan asupan nutrisi yang seimbang. Kebiasaan makan yang sehat dapat membantu anak tumbuh dan berkembang dengan optimal dan mengurangi risiko terkena penyakit kronis di masa depan",
+    desc: "Pola makan menjadi kebiasan yang baik",
+    artikel:
+      "Upaya membiasakan anak-anak dengan makanan sehat ini harus dimulai sejak dini dengan memberikan asupan nutrisi yang seimbang. Kebiasaan makan yang sehat dapat membantu anak tumbuh dan berkembang dengan optimal dan mengurangi risiko terkena penyakit kronis di masa depan",
     img: "/img/artikel/1.png",
   },
   {
     id: 2,
     judul: "UNICEF dukung kampanye makanan sehat",
-    tggl: "2023-11-24",
-    desc: "Para pemuda dari delapan negara berpartisipasi dalam sebuah kampanye yang didukung  UNICEF di Bangkok pada pekan ini",
+    desc: "Kampanye makanan sehat banyak di dukung oleh instansi pemerintah",
+    artikel:
+      "Para pemuda dari delapan negara berpartisipasi dalam sebuah kampanye yang didukung  UNICEF di Bangkok pada pekan ini",
     img: "/img/artikel/2.png",
   },
 ];
@@ -67,8 +69,8 @@ const ArtikelAdmin = () => {
                   <thead>
                     <tr>
                       <th style={{ width: "12%" }}>Judul</th>
-                      <th style={{ width: "10%" }}>Tanggal</th>
-                      <th style={{ width: "37%" }}>Deskripsi</th>
+                      <th style={{ width: "10%" }}>Deskripsi</th>
+                      <th style={{ width: "37%" }}>Artikel</th>
                       <th style={{ width: "15%" }}>Gambar</th>
                       <th style={{ width: "15%" }}>Pilihan</th>
                     </tr>
@@ -77,8 +79,8 @@ const ArtikelAdmin = () => {
                     {isitabel.map((artikel) => (
                       <tr key={artikel.id}>
                         <td>{artikel.judul}</td>
-                        <td>{artikel.tggl}</td>
-                        <td className="">{artikel.desc}</td>
+                        <td>{artikel.desc}</td>
+                        <td className="">{artikel.artikel}</td>
                         <td>
                           <img
                             src={artikel.img}
