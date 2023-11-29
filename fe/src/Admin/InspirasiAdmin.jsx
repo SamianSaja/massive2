@@ -3,20 +3,19 @@ import { Link } from "react-router-dom";
 import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
 
-
 const isitabel = [
   {
     id: 1,
     judul: "Katie Milner, Berhasil Turun 40 Kg Dan Bukan Lagi Miss Piggy",
-    tggl: "2023-11-24",
-    desc: "Gadis ini dibully dengan panggilan Miss. Piggy karena ia bertubuh tambun dengan berat sekitar 100 kg pada tinggi sekitar 152 cm.",
+    desc: "Katie Adalah seseorang yang ingin kurus",
+    inspirasi: "Gadis ini dibully dengan panggilan Miss. Piggy karena ia bertubuh tambun dengan berat sekitar 100 kg pada tinggi sekitar 152 cm.",
     img: "/img/inspirasi/1.png",
   },
   {
     id: 2,
     judul: "Cerita Sukses Dewi Hughes Turun 90 Kg dalam 15 Bulan",
-    tggl: "2023-11-24",
-    desc: "Dewi Hughes, artis dan presenter yang sukses menurunkan 90 kilogram berat badannya dalam 15 bulan",
+    desc: "Cerita seseorang yang ingin turu badan",
+    inspirasi: "Dewi Hughes, artis dan presenter yang sukses menurunkan 90 kilogram berat badannya dalam 15 bulan",
     img: "/img/inspirasi/2.png",
   },
 ];
@@ -71,8 +70,8 @@ const InspirasiAdmin = () => {
                   <thead>
                     <tr>
                       <th style={{ width: "12%" }}>Judul</th>
-                      <th style={{ width: "10%" }}>Tanggal</th>
-                      <th style={{ width: "37%" }}>Deskripsi</th>
+                      <th style={{ width: "10%" }}>Deskripsi</th>
+                      <th style={{ width: "37%" }}>Inspirasi</th>
                       <th style={{ width: "15%" }}>Gambar</th>
                       <th style={{ width: "15%" }}>Pilihan</th>
                     </tr>
@@ -81,8 +80,8 @@ const InspirasiAdmin = () => {
                     {isitabel.map((inspirasi) => (
                       <tr key={inspirasi.id}>
                         <td>{inspirasi.judul}</td>
-                        <td>{inspirasi.tggl}</td>
-                        <td className="">{inspirasi.desc}</td>
+                        <td>{inspirasi.desc}</td>
+                        <td className="">{inspirasi.inspirasi}</td>
                         <td>
                           <img
                             src={inspirasi.img}
