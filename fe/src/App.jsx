@@ -64,7 +64,7 @@ function App() {
         <Route path="/kebijakanprivasi" element={<KebijakanPrivasi />} />
 
         {/* halaman detail */}
-        <Route path="/dartikel1" element={<DArtikel1 />} />
+        <Route path="/dartikel1/:uuid" element={<DArtikel1 />} />
         <Route path="/dartikel2" element={<DArtikel2 />} />
 
         <Route path="/dresep1" element={<DResep1 />} />

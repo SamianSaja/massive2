@@ -1,3 +1,7 @@
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
 import { Row, Col, Container } from "react-bootstrap";
 import HeaderDetail from "../components/HeaderDetail";
 import CardArtikel from "../components/CardArtikel";
@@ -8,10 +12,30 @@ import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const DArtikel1 = () => {
+  const [selectedArticle, setSelectedArticle] = useState([]);
+  const { uuid } = useParams();
+
+  useEffect(() => {
+    getSelectedArticle(uuid)
+  }, []);
+
+  const getSelectedArticle = async (uuid) => {
+    try {
+      axios.get(`http://localhost:5000/articles/${uuid}`)
+      .then(res => setSelectedArticle(res.data.data))
+      .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
+
   return (
     <>
       <NavbarComponent />
-      <HeaderDetail title="Pola Makan Sehat" date="Terbit, 11 November 2023" />
+      {selectedArticle.map((head, i) => (
+      <HeaderDetail title={head.title} date={head.createdAt} />
+      ))};
 
       <Container fluid className="d-flex content-detail">
         <Row>

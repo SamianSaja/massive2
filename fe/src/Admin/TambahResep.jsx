@@ -1,14 +1,43 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavbarComponent from "../components/Navbar";
 
 import { Link } from "react-router-dom";
 
 const TambahResep = () => {
+  const [uuid, setuuid] = useState("rcp0002");
+  const [food_name, setFood_name] = useState("");
+  const [ingredient, setIngredient] = useState("ini adalah deskripsi");
+  const [food_making, setFood_making] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
+  const [img, setImg] = useState("img/artikel/1.png");
+  const [diet, setDiet] = useState(false);
+
+  const navigate = useNavigate();
+
+  const saveResep = async (e) => {
+    e.preventDefault();
+    try {
+        await axios.post('http://localhost:5000/recept', {
+            uuid,
+            food_name,
+            ingredient,
+            food_making,
+            img,
+            diet
+        });
+        navigate("/resep");
+    } catch (error) {
+        console.log(error);
+    }
+  }
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+    setImg(`img/resep/${file.name}`);
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -75,6 +104,8 @@ const TambahResep = () => {
                     className="form-control"
                     id="article-title"
                     name="article-title"
+                    value={food_name}
+                    onChange={(e) => (setFood_name(e.target.value))}
                   />
                 </div>
 
@@ -130,6 +161,8 @@ const TambahResep = () => {
                     id="article-content"
                     name="article-content"
                     rows="8"
+                    value={food_making}
+                    onChange={(e) => (setFood_making(e.target.value))}
                   ></textarea>
                 </div>
                 <div className="mb-3">
@@ -142,11 +175,13 @@ const TambahResep = () => {
                     id="article-content"
                     name="article-content"
                     rows="8"
+                    value={ingredient}
+                    onChange={(e) => (setIngredient(e.target.value))}
                   ></textarea>
                 </div>
 
                 <div className="mb-3 button  ">
-                  <button type="submit">Publikasi</button>
+                  <button type="submit" onClick={saveResep}>Publikasi</button>
                   <button type="button" className="ms-lg-4">
                     Batal
                   </button>
