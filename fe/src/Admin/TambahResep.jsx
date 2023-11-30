@@ -8,7 +8,7 @@ import NavbarComponent from "../components/Navbar";
 import { Link } from "react-router-dom";
 
 const TambahResep = () => {
-  const [uuid, setuuid] = useState("rcp0002");
+  let [uuid, setuuid] = useState("");
   const [food_name, setFood_name] = useState("");
   const [ingredient, setIngredient] = useState("ini adalah deskripsi");
   const [food_making, setFood_making] = useState("");
@@ -50,6 +50,13 @@ const TambahResep = () => {
   const handleRemoveImage = () => {
     setSelectedImage(null);
   };
+
+  setuuid = () => {
+    return uuid = "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
+  setuuid()
 
   return (
     <>

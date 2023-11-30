@@ -1,4 +1,6 @@
-import React from "react";
+import axios from 'axios';
+import React, { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
 import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -20,6 +22,23 @@ const isitabel = [
   },
 ];
 const TipsAdmin = () => {
+  const [tips, setTips] = useState([]);
+
+  useEffect(() => {
+    getTips()
+  }, []);
+
+  const getTips = async () => {
+    try {
+      axios.get('http://localhost:5000/tips')
+      .then(res => setTips(res.data.data))
+      .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
+
   return (
     <>
       <NavbarComponent />
@@ -76,14 +95,14 @@ const TipsAdmin = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {isitabel.map((tips) => (
-                      <tr key={tips.id}>
-                        <td>{tips.judul}</td>
-                        <td>{tips.desc}</td>
-                        <td className="">{tips.tips}</td>
+                    {tips.map((tip) => (
+                      <tr key={tip.uuid}>
+                        <td>{tip.title}</td>
+                        <td>{tip.desk}</td>
+                        <td className="">{tip.fill_content}</td>
                         <td>
                           <img
-                            src={tips.img}
+                            src={tip.img}
                             alt="Gambar Contoh"
                             style={{
                               width: "150px",

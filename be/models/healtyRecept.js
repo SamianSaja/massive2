@@ -4,7 +4,7 @@ const {DataTypes} = Sequelize
 
 const healtyRecept = db.define('healtyRecept', {
     uuid: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(36),
         primaryKey: true
     },
     food_name: {

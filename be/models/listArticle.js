@@ -4,7 +4,7 @@ const {DataTypes} = Sequelize
 
 const listArticle = db.define('listArticle', {
     uuid: {
-        type: DataTypes.STRING(10),
+        type: DataTypes.STRING(36),
         primaryKey: true
     },
     title: {

@@ -1,4 +1,6 @@
-import React from "react";
+import axios from 'axios';
+import React, { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
 import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -16,6 +18,23 @@ const isitabel = [
   },
 ];
 const ResepAdmin = () => {
+  const [recepts, setRecepts] = useState([]);
+
+  useEffect(() => {
+    getRecepts()
+  }, []);
+
+  const getRecepts = async () => {
+    try {
+      axios.get('http://localhost:5000/recept')
+      .then(res => setRecepts(res.data.data))
+      .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
+
   return (
     <>
       <NavbarComponent />
@@ -68,9 +87,9 @@ const ResepAdmin = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {isitabel.map((resep) => (
-                      <tr key={resep.id}>
-                        <td>{resep.nama}</td>
+                    {recepts.map((resep) => (
+                      <tr key={resep.uuid}>
+                        <td>{resep.food_name}</td>
                         <td>
                           <img
                             src={resep.img}
