@@ -7,9 +7,9 @@ import NavbarComponent from "../components/Navbar";
 import { Link } from "react-router-dom";
 
 const TambahArtikel = () => {
-  const [uuid, setuuid] = useState("art0002");
+  let [uuid, setuuid] = useState("");
   const [title, setTitle] = useState("");
-  const [desk, setDesk] = useState("ini adalah deskripsi");
+  const [desk, setDesk] = useState("");
   const [fill_content, setFillContent] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [img, setImg] = useState("img/artikel/1.png");
@@ -54,7 +54,13 @@ const TambahArtikel = () => {
   const handleRemoveImage = () => {
     setSelectedImage(null);
   };
-  console.log(img);
+
+  setuuid = () => {
+    return uuid = "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
+  setuuid()
 
   return (
     <>
@@ -127,6 +133,8 @@ const TambahArtikel = () => {
                     id="article-content"
                     name="article-content"
                     rows="8"
+                    value={desk}
+                    onChange={(e) => setDesk(e.target.value)}
                   ></textarea>
                 </div>
 

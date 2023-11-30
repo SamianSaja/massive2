@@ -7,7 +7,7 @@ import NavbarComponent from "../components/Navbar";
 import { Link } from "react-router-dom";
 
 const TambahInspirasi = () => {
-  const [uuid, setuuid] = useState("art0002");
+  let [uuid, setuuid] = useState("");
   const [title, setTitle] = useState("");
   const [desk, setDesk] = useState("ini adalah deskripsi");
   const [fill_content, setFillContent] = useState("");
@@ -49,6 +49,13 @@ const TambahInspirasi = () => {
   const handleRemoveImage = () => {
     setSelectedImage(null);
   };
+
+  setuuid = () => {
+    return uuid = "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
+  setuuid()
 
   return (
     <>

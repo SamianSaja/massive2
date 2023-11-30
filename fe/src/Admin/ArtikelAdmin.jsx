@@ -1,4 +1,6 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import NavbarComponent from "../components/Navbar";
@@ -22,6 +24,23 @@ const isitabel = [
   },
 ];
 const ArtikelAdmin = () => {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    getArticle();
+  }, []);
+
+  const getArticle = async () => {
+    try {
+      axios
+        .get("http://localhost:5000/articles")
+        .then((res) => setArticles(res.data.data))
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <NavbarComponent />
@@ -76,11 +95,11 @@ const ArtikelAdmin = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {isitabel.map((artikel) => (
-                      <tr key={artikel.id}>
-                        <td>{artikel.judul}</td>
-                        <td>{artikel.desc}</td>
-                        <td className="">{artikel.artikel}</td>
+                    {articles.map((artikel) => (
+                      <tr key={artikel.uuid}>
+                        <td>{artikel.title}</td>
+                        <td>{artikel.desk}</td>
+                        <td className="">{artikel.fill_content}</td>
                         <td>
                           <img
                             src={artikel.img}

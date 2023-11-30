@@ -4,7 +4,7 @@ const {DataTypes} = Sequelize
 
 const inspiration = db.define('inspiration', {
     uuid: {
-        type: DataTypes.STRING(10),
+        type: DataTypes.STRING(36),
         primaryKey: true
     },
     title: {

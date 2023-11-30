@@ -1,4 +1,6 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
 import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -20,6 +22,23 @@ const isitabel = [
   },
 ];
 const InspirasiAdmin = () => {
+  const [ins, setIns] = useState([]);
+
+  useEffect(() => {
+    getIns()
+  }, []);
+
+  const getIns = async () => {
+    try {
+      axios.get('http://localhost:5000/ins')
+      .then(res => setIns(res.data.data))
+      .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
+
   return (
     <>
       <NavbarComponent />
@@ -77,11 +96,11 @@ const InspirasiAdmin = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {isitabel.map((inspirasi) => (
-                      <tr key={inspirasi.id}>
-                        <td>{inspirasi.judul}</td>
-                        <td>{inspirasi.desc}</td>
-                        <td className="">{inspirasi.inspirasi}</td>
+                    {ins.map((inspirasi) => (
+                      <tr key={inspirasi.uuid}>
+                        <td>{inspirasi.title}</td>
+                        <td>{inspirasi.desk}</td>
+                        <td className="">{inspirasi.fill_content}</td>
                         <td>
                           <img
                             src={inspirasi.img}
