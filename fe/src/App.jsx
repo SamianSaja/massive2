@@ -30,6 +30,7 @@ import RegisterPages from "./pages/RegisterPages";
 import LoginTelp from "./pages/DaftarTelp";
 import RegistrasiVerif from "./pages/RegistrasiVerif";
 import RegistrasiSucess from "./pages/RegistrasiSucess";
+import LupaPassword from "./pages/LupaPassword";
 import HomeAfterLogin from "./pages/HomeAfterLogin";
 import EditProfil from "./pages/EditProfil";
 import PasswordPages from "./pages/PasswordPages";
@@ -48,7 +49,6 @@ import TambahTips from "./Admin/TambahTips";
 import TipsAdmin from "./Admin/TipsAdmin";
 import ArtikelAdmin from "./Admin/ArtikelAdmin";
 import TambahDiet from "./Admin/Tambahdiet";
-
 
 function App() {
   return (
@@ -81,6 +81,7 @@ function App() {
         <Route path="/logintelp" Component={LoginTelp} />
         <Route path="/kodeverif" Component={RegistrasiVerif} />
         <Route path="/sukseslogin" Component={RegistrasiSucess} />
+        <Route path="lupapassword" Component={LupaPassword} />
 
         {/* sesudah login */}
         <Route path="/homeakun" Component={HomeAfterLogin} />
@@ -88,7 +89,7 @@ function App() {
         <Route path="/password" Component={PasswordPages} />
         <Route path="/tersimpan" Component={TersimpanPages} />
 
-        {/* rounting halaman admin */}
+        {/* routing halaman admin */}
         <Route path="/tambahartikel" Component={TambahArtikel} />
         <Route path="/tambahresep" Component={TambahResep} />
         <Route path="/tambahtips" Component={TambahTips} />

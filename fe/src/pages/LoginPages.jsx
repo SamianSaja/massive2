@@ -58,11 +58,11 @@ const LoginPages = () => {
                 alt="hay"
                 className="icon-hide "
                 onClick={togglePasswordVisibility}
-              /> 
+              />
             </div>
 
             <Form.Text className="text-muted float-end ">
-              <Link to="/forgot">Lupa Kata Sandi?</Link>
+              <Link to="/lupapassword">Lupa Kata Sandi?</Link>
             </Form.Text>
             <Link to="/homeakun">
               <button className="form-button" type="submit">

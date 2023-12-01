@@ -572,7 +572,7 @@
 
 /* style Login with telephone start */
 .formtelp {
-  padding-top: 45px;
+  padding-top: 2px;
 }
 
 /* style Verifikasi telp start */
@@ -1170,3 +1170,12 @@ textarea {
 }
 
 /* Sesuaikan gaya yang lain sesuai kebutuhan proyek Anda */
+
+/* animasi hover button share */
+.iconshare {
+  transition: transform 0.3s ease-in-out;
+}
+
+.iconshare:hover {
+  transform: scale(1.2);
+}

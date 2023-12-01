@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const LoginTelp = () => {
   return (
     <>
-      <div fluid className="Container">
+      <div fluid className="Container" style={{ height: "100vh" }}>
         <Row>
           <Col xs={12} md={6}>
             <img
