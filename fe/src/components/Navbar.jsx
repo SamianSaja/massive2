@@ -7,7 +7,7 @@ const NavbarComponent = () => {
       <Navbar expand="lg" fixed="top" className="bg-body-tertiary navbar bold">
         <Container fluid className="px-5">
           <Navbar.Brand href="#home">
-            <img src="img/logo-kalt.png" alt="logo" className="logo" />
+            <img src="/img/logo-kalt.png" alt="logo" className="logo" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

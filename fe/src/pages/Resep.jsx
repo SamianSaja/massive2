@@ -39,10 +39,10 @@ const Resep = () => {
       <section className="content-card-utama">
         <Row className="justify-content-center">
           {recepts.map((data, index) => (
-            <Link to={data.url} className="col-lg-4 text-decoration-none d-flex">
+            <Link to={`/dresep/${data.uuid}`} className="col-lg-4 text-decoration-none d-flex">
               <CardItem
                 key={index}
-                imgCard={data.img}
+                imgCard={`http://localhost:5000/${data.img}`}
                 title={data.food_name}
               ></CardItem>
             </Link>

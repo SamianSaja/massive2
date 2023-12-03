@@ -5,22 +5,22 @@ import { Link } from "react-router-dom";
 import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const isitabel = [
-  {
-    id: 1,
-    judul: "Menyimpan Bumbu Dapur agar Awet",
-    desc: "Menyimpan Bumbu-bumbu",
-    tips: "Menyimpan bumbu dapur dengan tepat menjaga kebersihan dapur dan meningkatkan daya tahan bumbu.",
-    img: "/img/tips/1.png",
-  },
-  {
-    id: 2,
-    judul: "Tips Membuat Anak Menyukai Makanan Sehat",
-    desc: "Upaya anak menyukai makanan sehat",
-    tips: "Temukan cara mudah dan efektif mengajarkan anak mencintai makanan sehat dengan tips menyenangkan dan bermanfaat!",
-    img: "/img/tips/2.png",
-  },
-];
+// const isitabel = [
+//   {
+//     id: 1,
+//     judul: "Menyimpan Bumbu Dapur agar Awet",
+//     desc: "Menyimpan Bumbu-bumbu",
+//     tips: "Menyimpan bumbu dapur dengan tepat menjaga kebersihan dapur dan meningkatkan daya tahan bumbu.",
+//     img: "/img/tips/1.png",
+//   },
+//   {
+//     id: 2,
+//     judul: "Tips Membuat Anak Menyukai Makanan Sehat",
+//     desc: "Upaya anak menyukai makanan sehat",
+//     tips: "Temukan cara mudah dan efektif mengajarkan anak mencintai makanan sehat dengan tips menyenangkan dan bermanfaat!",
+//     img: "/img/tips/2.png",
+//   },
+// ];
 const TipsAdmin = () => {
   const [tips, setTips] = useState([]);
 
@@ -37,6 +37,15 @@ const TipsAdmin = () => {
       console.log(error)
     }
     
+  };
+
+  const deleteTips = async (id) => {
+    try {
+        await axios.delete(`http://localhost:5000/tips/${id}`);
+        getTips();
+    } catch (error) {
+        console.log(error);
+    }
   };
 
   return (
@@ -88,21 +97,26 @@ const TipsAdmin = () => {
                   <thead>
                     <tr>
                       <th style={{ width: "12%" }}>Judul</th>
-                      <th style={{ width: "10%" }}>Deskripsi</th>
-                      <th style={{ width: "37%" }}>Tips</th>
+                      <th style={{ width: "12%" }}>Tanggal</th>
+                      <th style={{ width: "37%" }}>Deskripsi</th>
                       <th style={{ width: "15%" }}>Gambar</th>
                       <th style={{ width: "15%" }}>Pilihan</th>
                     </tr>
                   </thead>
                   <tbody>
                     {tips.map((tip) => (
+                      // let dateFromDb = new Date(tip.createdAt);
                       <tr key={tip.uuid}>
                         <td>{tip.title}</td>
+                        <td>
+                        <i>created:</i> {new Date(tip.createdAt).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}<br/><br/>
+                        <i>updated:</i> {new Date(tip.updatedAt).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
+                        </td>
                         <td>{tip.desk}</td>
-                        <td className="">{tip.fill_content}</td>
+                        {/* <td className="">{tip.fill_content}</td> */}
                         <td>
                           <img
-                            src={tip.img}
+                            src={`http://localhost:5000/${tip.img}`}
                             alt="Gambar Contoh"
                             style={{
                               width: "150px",
@@ -112,8 +126,8 @@ const TipsAdmin = () => {
                           />
                         </td>
                         <td className="button">
-                          <button className="btn btn-primary px-3">Edit</button>
-                          <button className="btn btn-danger ms-lg-2 px-3 bg-danger">
+                          <Link to={`/edittips/${tip.uuid}`} className="btn btn-primary px-3">Edit</Link>
+                          <button onClick={() => deleteTips(tip.uuid)} className="btn btn-danger ms-lg-2 px-3 bg-danger">
                             Hapus
                           </button>
                         </td>

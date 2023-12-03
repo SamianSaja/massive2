@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavbarComponent from "../components/Navbar";
 
@@ -10,34 +13,39 @@ import { Link } from "react-router-dom";
 const TambahResep = () => {
   let [uuid, setuuid] = useState("");
   const [food_name, setFood_name] = useState("");
-  const [ingredient, setIngredient] = useState("ini adalah deskripsi");
+  const [ingredient, setIngredient] = useState("");
   const [food_making, setFood_making] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
-  const [img, setImg] = useState("img/artikel/1.png");
+  const [img, setImg] = useState("/img/artikel/1.png");
   const [diet, setDiet] = useState(false);
 
   const navigate = useNavigate();
 
   const saveResep = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('uuid', uuid);
+    formData.append('food_name', food_name);
+    formData.append('ingredient', ingredient);
+    formData.append('food_making', food_making);
+    formData.append('img', img);
+    formData.append('diet', diet);
+    
     try {
-        await axios.post('http://localhost:5000/recept', {
-            uuid,
-            food_name,
-            ingredient,
-            food_making,
-            img,
-            diet
-        });
-        navigate("/resep");
-    } catch (error) {
-        console.log(error);
-    }
+      await axios.post('http://localhost:5000/recept', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      navigate("/resep");
+  } catch (error) {
+      console.log(error);
+  }
   }
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    setImg(`img/resep/${file.name}`);
+    setImg(file);
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -162,29 +170,35 @@ const TambahResep = () => {
                   <label htmlFor="article-content" className="form-label">
                     Cara Pembuatan
                   </label>
-                  <textarea
-                    placeholder="Masukan cara pembuatan"
-                    className="form-control border border-2 rounded-1"
-                    id="article-content"
-                    name="article-content"
-                    rows="8"
-                    value={food_making}
-                    onChange={(e) => (setFood_making(e.target.value))}
-                  ></textarea>
+                  <div className="App">
+                    <CKEditor
+                        editor={ ClassicEditor }
+                        data={food_making}
+                            
+                        onChange={ ( event, editor) => {
+                          const data = editor.getData();
+                          setFood_making(data);
+                      } }
+
+                    />
+                  </div>
                 </div>
                 <div className="mb-3">
                   <label htmlFor="article-content" className="form-label">
                     Bahan-Bahan
                   </label>
-                  <textarea
-                    placeholder="Masukan bahan-bahan"
-                    className="form-control border border-2 rounded-1"
-                    id="article-content"
-                    name="article-content"
-                    rows="8"
-                    value={ingredient}
-                    onChange={(e) => (setIngredient(e.target.value))}
-                  ></textarea>
+                  <div className="App">
+                    <CKEditor
+                        editor={ ClassicEditor }
+                        data={ingredient}
+                            
+                        onChange={ ( event, editor) => {
+                          const data = editor.getData();
+                          setIngredient(data);
+                      } }
+
+                    />
+                </div>
                 </div>
 
                 <div className="mb-3 button  ">

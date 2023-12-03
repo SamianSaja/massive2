@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import { Row } from "react-bootstrap";
 import CtaBtn from "../components/CtaBtn";
 import { CardItem } from "../components/CardItem";
-import { dataInspirasi } from "../data/dataInspirasi";
+// import { dataInspirasi } from "../data/dataInspirasi";
 import { Link } from "react-router-dom";
 import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -41,11 +41,11 @@ const Inspirasi = () => {
           {ins.map((data, index) => (
             <CardItem
               key={index}
-              imgCard={data.img}
+              imgCard={`http://localhost:5000/${data.img}`}
               title={data.title}
               text={data.desk}
             >
-              <Link to={data.url}>
+              <Link to={`/dinspirasi/${data.uuid}`}>
               <CtaBtn />
               </Link>
               {/* <CtaBtn  targetPath={`/dInspirasi${index + 1}`}/> */}

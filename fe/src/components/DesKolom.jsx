@@ -1,8 +1,8 @@
 import { Button, Card, Row, Col, Container } from "react-bootstrap";
 
 const DesKolom = (props) => {
-  const paragraphs = props.paragraphs || [];
-  const listItems = props.listItems || [];
+  // const paragraphs = props.paragraphs || [];
+  // const listItems = props.listItems || [];
   return (
     <>
       <Col xs={4} className="col-lg-7 col-12">
@@ -16,18 +16,16 @@ const DesKolom = (props) => {
         </div>
         <h3 className="bold">{props.titleDesk}</h3>
 
-        <div className="fs-5 text-justify text-detail">
-          {props.paragraphs.map((paragraph, index) => (
+        <div dangerouslySetInnerHTML={{__html:props.paragraphs}} className="fs-5 text-justify text-detail">
+          {/* {props.paragraphs.map((paragraph, index) => (
             <p key={index}> {paragraph} </p>
-          ))}
+          ))} */}
         </div>
 
-        <div className="fs-5 text-justify text-list">
-          <ul>
-            {props.listItems.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
+        <div dangerouslySetInnerHTML={{__html:props.listItems}} className="fs-5 text-justify text-detail">
+          {/* {props.paragraphs.map((paragraph, index) => (
+            <p key={index}> {paragraph} </p>
+          ))} */}
         </div>
       </Col>
 

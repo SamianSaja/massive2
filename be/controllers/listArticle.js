@@ -22,22 +22,13 @@ controller.getArticles = async(req, res) => {
 
 controller.searchArticle = async(req, res) => {
     try {
-        let response = await model.listArticle.findAll({
+        let response = await model.listArticle.findOne({
             where: {
                 uuid: req.params.uuid
             }
         })
-        if (response.length > 0) {
-            res.status(200).json({
-                message: 'article finded!',
-                data: response
-            })
-        }else {
-            res.status(200).json({
-                message: 'not data entry',
-                data: []
-            })
-        }
+        res.status(200).json(response);
+        
     } catch (error) {
         console.log(error.message)
     }
@@ -45,13 +36,14 @@ controller.searchArticle = async(req, res) => {
 
 
 controller.createArticle = async(req, res) => {
+    // console.log(req.file)
     try {
         await model.listArticle.create({
             uuid: req.body.uuid,
             title: req.body.title,
             desk: req.body.desk,
             fill_content: req.body.fill_content,
-            img: req.body.img
+            img: req.file.path
         });
         res.status(201).json({msg: "Article Created"});
     } catch (error) {
@@ -66,7 +58,7 @@ controller.updateArticle = async(req, res) => {
             title: req.body.title,
             desk: req.body.desk,
             fill_content: req.body.fill_content,
-            img: req.body.img
+            img: req.file.path
         },{
             where: {
                 uuid: req.params.uuid
