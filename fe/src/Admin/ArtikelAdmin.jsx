@@ -5,24 +5,24 @@ import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import NavbarComponent from "../components/Navbar";
 
-const isitabel = [
-  {
-    id: 1,
-    judul: "Pola Makan Sehat",
-    desc: "Pola makan menjadi kebiasan yang baik",
-    artikel:
-      "Upaya membiasakan anak-anak dengan makanan sehat ini harus dimulai sejak dini dengan memberikan asupan nutrisi yang seimbang. Kebiasaan makan yang sehat dapat membantu anak tumbuh dan berkembang dengan optimal dan mengurangi risiko terkena penyakit kronis di masa depan",
-    img: "/img/artikel/1.png",
-  },
-  {
-    id: 2,
-    judul: "UNICEF dukung kampanye makanan sehat",
-    desc: "Kampanye makanan sehat banyak di dukung oleh instansi pemerintah",
-    artikel:
-      "Para pemuda dari delapan negara berpartisipasi dalam sebuah kampanye yang didukung  UNICEF di Bangkok pada pekan ini",
-    img: "/img/artikel/2.png",
-  },
-];
+// const isitabel = [
+//   {
+//     id: 1,
+//     judul: "Pola Makan Sehat",
+//     desc: "Pola makan menjadi kebiasan yang baik",
+//     artikel:
+//       "Upaya membiasakan anak-anak dengan makanan sehat ini harus dimulai sejak dini dengan memberikan asupan nutrisi yang seimbang. Kebiasaan makan yang sehat dapat membantu anak tumbuh dan berkembang dengan optimal dan mengurangi risiko terkena penyakit kronis di masa depan",
+//     img: "/img/artikel/1.png",
+//   },
+//   {
+//     id: 2,
+//     judul: "UNICEF dukung kampanye makanan sehat",
+//     desc: "Kampanye makanan sehat banyak di dukung oleh instansi pemerintah",
+//     artikel:
+//       "Para pemuda dari delapan negara berpartisipasi dalam sebuah kampanye yang didukung  UNICEF di Bangkok pada pekan ini",
+//     img: "/img/artikel/2.png",
+//   },
+// ];
 const ArtikelAdmin = () => {
   const [articles, setArticles] = useState([]);
 
@@ -38,6 +38,15 @@ const ArtikelAdmin = () => {
         .catch((err) => console.log(err));
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const deleteArticle = async (id) => {
+    try {
+        await axios.delete(`http://localhost:5000/articles/${id}`);
+        getArticle();
+    } catch (error) {
+        console.log(error);
     }
   };
 
@@ -88,21 +97,25 @@ const ArtikelAdmin = () => {
                   <thead>
                     <tr>
                       <th style={{ width: "12%" }}>Judul</th>
-                      <th style={{ width: "10%" }}>Deskripsi</th>
-                      <th style={{ width: "37%" }}>Artikel</th>
+                      <th style={{ width: "12%" }}>Tanggal</th>
+                      <th style={{ width: "37%" }}>Deskripsi</th>
                       <th style={{ width: "15%" }}>Gambar</th>
                       <th style={{ width: "15%" }}>Pilihan</th>
                     </tr>
                   </thead>
                   <tbody>
                     {articles.map((artikel) => (
-                      <tr key={artikel.uuid}>
+                      <tr>
                         <td>{artikel.title}</td>
+                        <td>
+                        <i>created:</i> {new Date(artikel.createdAt).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}<br/><br/>
+                        <i>updated:</i> {new Date(artikel.updatedAt).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
+                        </td>
                         <td>{artikel.desk}</td>
-                        <td className="">{artikel.fill_content}</td>
+                        {/* <td dangerouslySetInnerHTML={{__html:artikel.fill_content}} className=""></td> */}
                         <td>
                           <img
-                            src={artikel.img}
+                            src={`http://localhost:5000/${artikel.img}`}
                             alt="Gambar Contoh"
                             style={{
                               width: "150px",
@@ -112,8 +125,8 @@ const ArtikelAdmin = () => {
                           />
                         </td>
                         <td className="button">
-                          <button className="btn btn-primary px-3">Edit</button>
-                          <button className="btn btn-danger ms-lg-2 px-3 bg-danger">
+                          <Link to={`/editartikel/${artikel.uuid}`} className="btn btn-primary px-3">Edit</Link>
+                          <button onClick={() => deleteArticle(artikel.uuid)} className="btn btn-danger ms-lg-2 px-3 bg-danger">
                             Hapus
                           </button>
                         </td>

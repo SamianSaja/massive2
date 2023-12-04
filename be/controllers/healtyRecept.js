@@ -22,22 +22,13 @@ controller.getRecepts = async(req, res) => {
 
 controller.searchRecept = async(req, res) => {
     try {
-        let response = await model.healtyRecept.findAll({
+        let response = await model.healtyRecept.findOne({
             where: {
                 uuid: req.params.uuid
             }
         })
-        if (response.length > 0) {
-            res.status(200).json({
-                message: 'Article Healty Recept finded!',
-                data: response
-            })
-        }else {
-            res.status(200).json({
-                message: 'not data entry',
-                data: []
-            })
-        }
+        res.status(200).json(response);
+        
     } catch (error) {
         console.log(error.message)
     }
@@ -51,7 +42,7 @@ controller.createRecept = async(req, res) => {
             food_name: req.body.food_name,
             ingredient: req.body.ingredient,
             food_making: req.body.food_making,
-            img: req.body.img,
+            img: req.file.path,
             diet: req.body.diet
         });
         res.status(201).json({msg: "Article healty Recept Created"});
@@ -67,11 +58,11 @@ controller.updateRecept = async(req, res) => {
             food_name: req.body.food_name,
             ingredient: req.body.ingredient,
             food_making: req.body.food_making,
-            img: req.body.img,
+            img: req.file.path,
             diet: req.body.diet
         },{
             where: {
-                contentId: req.params.contentId
+                uuid: req.params.uuid
             }
         });
         res.status(200).json({msg: "Article  Healty Recept Updated"});

@@ -22,22 +22,13 @@ controller.getTips = async(req, res) => {
 
 controller.searchTips = async(req, res) => {
     try {
-        let response = await model.tips.findAll({
+        let response = await model.tips.findOne({
             where: {
                 uuid: req.params.uuid
             }
         })
-        if (response.length > 0) {
-            res.status(200).json({
-                message: 'tips and triks finded!',
-                data: response
-            })
-        }else {
-            res.status(200).json({
-                message: 'not data entry',
-                data: []
-            })
-        }
+        res.status(200).json(response);
+        
     } catch (error) {
         console.log(error.message)
     }
@@ -51,7 +42,7 @@ controller.createTips = async(req, res) => {
             title: req.body.title,
             desk: req.body.desk,
             fill_content: req.body.fill_content,
-            img: req.body.img
+            img: req.file.path
         });
         res.status(201).json({msg: "Tips and Triks Created"});
     } catch (error) {
@@ -66,7 +57,7 @@ controller.updateTips = async(req, res) => {
             title: req.body.title,
             desk: req.body.desk,
             fill_content: req.body.fill_content,
-            img: req.body.img
+            img: req.file.path
         },{
             where: {
                 uuid: req.params.uuid

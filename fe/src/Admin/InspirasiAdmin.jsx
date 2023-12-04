@@ -39,6 +39,15 @@ const InspirasiAdmin = () => {
     
   };
 
+  const deleteIns = async (id) => {
+    try {
+        await axios.delete(`http://localhost:5000/ins/${id}`);
+        getIns();
+    } catch (error) {
+        console.log(error);
+    }
+  };
+
   return (
     <>
       <NavbarComponent />
@@ -89,8 +98,8 @@ const InspirasiAdmin = () => {
                   <thead>
                     <tr>
                       <th style={{ width: "12%" }}>Judul</th>
-                      <th style={{ width: "10%" }}>Deskripsi</th>
-                      <th style={{ width: "37%" }}>Inspirasi</th>
+                      <th style={{ width: "12%" }}>Tanggal</th>
+                      <th style={{ width: "37%" }}>Deskripsi</th>
                       <th style={{ width: "15%" }}>Gambar</th>
                       <th style={{ width: "15%" }}>Pilihan</th>
                     </tr>
@@ -99,11 +108,15 @@ const InspirasiAdmin = () => {
                     {ins.map((inspirasi) => (
                       <tr key={inspirasi.uuid}>
                         <td>{inspirasi.title}</td>
+                        <td>
+                        <i>created:</i> {new Date(inspirasi.createdAt).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}<br/><br/>
+                        <i>updated:</i> {new Date(inspirasi.updatedAt).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
+                        </td>
                         <td>{inspirasi.desk}</td>
-                        <td className="">{inspirasi.fill_content}</td>
+                        {/* <td className="">{inspirasi.fill_content}</td> */}
                         <td>
                           <img
-                            src={inspirasi.img}
+                            src={`http://localhost:5000/${inspirasi.img}`}
                             alt="Gambar Contoh"
                             style={{
                               width: "150px",
@@ -113,8 +126,8 @@ const InspirasiAdmin = () => {
                           />
                         </td>
                         <td className="button">
-                          <button className="btn btn-primary px-3">Edit</button>
-                          <button className="btn btn-danger ms-lg-2 px-3 bg-danger">
+                          <Link to={`/editins/${inspirasi.uuid}`} className="btn btn-primary px-3">Edit</Link>
+                          <button onClick={() => deleteIns(inspirasi.uuid)} className="btn btn-danger ms-lg-2 px-3 bg-danger">
                             Hapus
                           </button>
                         </td>

@@ -2,9 +2,13 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavbarComponent from "../components/Navbar";
 import { Link } from "react-router-dom";
+// import Editor from '../components/Editor';
 
 const TambahArtikel = () => {
   let [uuid, setuuid] = useState("");
@@ -12,34 +16,40 @@ const TambahArtikel = () => {
   const [desk, setDesk] = useState("");
   const [fill_content, setFillContent] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
-  const [img, setImg] = useState("img/artikel/1.png");
+  const [img, setImg] = useState(null);
   const navigate = useNavigate();
 
   const saveArtikel = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('uuid', uuid);
+    formData.append('title', title);
+    formData.append('desk', desk);
+    formData.append('fill_content', fill_content);
+    formData.append('img', img);
+
     try {
-        await axios.post('http://localhost:5000/articles', {
-            uuid,
-            title,
-            desk,
-            fill_content,
-            img
+        await axios.post('http://localhost:5000/articles', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         });
         navigate("/artikel");
     } catch (error) {
         console.log(error);
     }
-  }
+  };
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     console.log(file.name);
-    setImg(`img/artikel/${file.name}`)
+    setImg(file);
     if (file) {
       const reader = new FileReader();
       console.log(reader)
       reader.onloadend = () => {
         setSelectedImage(reader.result);
+        console.log(reader.result)
       };
       reader.readAsDataURL(file);
     }
@@ -154,7 +164,7 @@ const TambahArtikel = () => {
                       <input
                         type="file"
                         id="file-upload"
-                        name="article-image"
+                        name="img"
                         accept="image/*"
                         onChange={handleImageChange}
                         style={{ display: "none" }}
@@ -184,7 +194,7 @@ const TambahArtikel = () => {
                   <label htmlFor="article-content" className="form-label">
                     Isi Artikel:
                   </label>
-                  <textarea
+                  {/* <textarea
                     placeholder="isi artikel"
                     className="form-control border border-2 rounded-1"
                     id="article-content"
@@ -192,7 +202,25 @@ const TambahArtikel = () => {
                     rows="8"
                     value={fill_content}
                     onChange={(e) => setFillContent(e.target.value)}
-                  ></textarea>
+                  ></textarea> */}
+                  {/* <Editor 
+                    fillContent={fill_content}
+                    setFill={setFillContent}
+                  /> */}
+
+                <div className="App">
+                    <CKEditor
+                        editor={ ClassicEditor }
+                        data={fill_content}
+                            
+                        onChange={ ( event, editor) => {
+                          const data = editor.getData();
+                          setFillContent(data);
+                      } }
+
+                    />
+                </div>
+
                 </div>
 
                 <div className="mb-3 button  ">

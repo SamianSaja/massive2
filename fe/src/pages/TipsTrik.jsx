@@ -40,11 +40,11 @@ const TipsTrik = () => {
           {tips.map((data, index) => (
             <CardItem
               key={index}
-              imgCard={data.img}
+              imgCard={`http://localhost:5000/${data.img}`}
               title={data.title}
               text={data.desk}
             >
-              <Link to={data.url}>
+              <Link to={`/dtips/${data.uuid}`}>
                 <CtaBtn />
               </Link>
 
