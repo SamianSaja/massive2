@@ -26,6 +26,7 @@ const Artikel = () => {
     }
   };
 
+
   return (
     <>
       <NavbarComponent />
@@ -36,11 +37,11 @@ const Artikel = () => {
           {articles.map((data, index) => (
             <CardItem
               key={index}
-              imgCard={data.img}
+              imgCard={`http://localhost:5000/${data.img}`}
               title={data.title}
               text={data.desk}
             >
-              <Link to={`/DArtikel1/${data.uuid}`}>
+              <Link to={`/dartikel/${data.uuid}`}>
                 <CtaBtn />
               </Link>
             </CardItem>
