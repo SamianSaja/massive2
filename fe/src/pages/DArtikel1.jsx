@@ -74,7 +74,7 @@ const DArtikel1 = () => {
             paragraphs={fill_content}
           />
           
-          <Col xs={4} className="col-lg-5 col-12 text-center">
+          <Col xs={4} className="col-lg-5 col-12">
             <h2>Artikel Terkait</h2>
           {articles.map((data, i) => ( 
             <CardArtikel
@@ -82,9 +82,9 @@ const DArtikel1 = () => {
               imgCard={`http://localhost:5000/${data.img}`}
               titleCard={data.title}
             >
-              {/* <Link to={`/dartikel/${data.uuid}`}> */}
+              <Link to={`/dartikel/${data.uuid}`}>
                 <CtaBtnSmall />
-              {/* </Link> */}
+              </Link>
               <Bagikan />
             </CardArtikel>
             

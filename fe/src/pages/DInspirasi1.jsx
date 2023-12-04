@@ -72,7 +72,7 @@ const DInspirasi1 = () => {
 
           />
 
-          <Col xs={4} className="col-5 text-center">
+          <Col xs={4} className="col-5">
           <h2>Artikel Terkait</h2>
           {ins.map((data, i) => ( 
             <CardArtikel
