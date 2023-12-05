@@ -8,7 +8,7 @@ const tips = db.define('tips', {
         primaryKey: true
     },
     title: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING,
         allowNull: false
     },
     desk: {

@@ -8,7 +8,7 @@ const inspiration = db.define('inspiration', {
         primaryKey: true
     },
     title: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING,
         allowNull: false
     },
     desk: {

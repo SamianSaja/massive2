@@ -18,7 +18,6 @@ import Home from "./pages/Home";
 import { Button, Card, Row, Col, Container } from "react-bootstrap";
 
 import DArtikel1 from "./pages/DArtikel1";
-import DArtikel2 from "./pages/DArtikel2";
 import DResep1 from "./pages/DResep1";
 import DTips1 from "./pages/DTips1";
 import DInspirasi1 from "./pages/DInspirasi1";
@@ -49,6 +48,10 @@ import TambahTips from "./Admin/TambahTips";
 import TipsAdmin from "./Admin/TipsAdmin";
 import ArtikelAdmin from "./Admin/ArtikelAdmin";
 import TambahDiet from "./Admin/Tambahdiet";
+import EditArtikel from "./Admin/EditArtikel";
+import EditResep from "./Admin/EditResep";
+import EditTips from "./Admin/EditTips";
+import EditInspirasi from "./Admin/EditInspirasi";
 
 function App() {
   return (
@@ -64,14 +67,13 @@ function App() {
         <Route path="/kebijakanprivasi" element={<KebijakanPrivasi />} />
 
         {/* halaman detail */}
-        <Route path="/dartikel1/:uuid" element={<DArtikel1 />} />
-        <Route path="/dartikel2" element={<DArtikel2 />} />
+        <Route path="/dartikel/:uuid" element={<DArtikel1 />} />
 
-        <Route path="/dresep1" element={<DResep1 />} />
+        <Route path="/dresep/:uuid" element={<DResep1 />} />
 
-        <Route path="/dtips1" element={<DTips1 />} />
+        <Route path="/dtips/:uuid" element={<DTips1 />} />
 
-        <Route path="/dinspirasi1" element={<DInspirasi1 />} />
+        <Route path="/dinspirasi/:uuid" element={<DInspirasi1 />} />
 
         <Route path="/dvegan1" element={<DVegan1 />} />
 
@@ -100,6 +102,14 @@ function App() {
         <Route path="/addtipsA" Component={TipsAdmin} />
         <Route path="/addinspirasiA" Component={InspirasiAdmin} />
         <Route path="/adddietA" Component={DietAdmin} />
+        <Route path="/editartikel/:uuid" Component={EditArtikel} />
+        <Route path="/editresep/:uuid" Component={EditResep} />
+        <Route path="/edittips/:uuid" Component={EditTips} />
+        <Route path="/editins/:uuid" Component={EditInspirasi} />
+
+
+
+
       </Routes>
 
       {/* <DArtikel1/>

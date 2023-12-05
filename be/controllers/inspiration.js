@@ -22,22 +22,13 @@ controller.getIns = async(req, res) => {
 
 controller.searchIns = async(req, res) => {
     try {
-        let response = await model.inspiration.findAll({
+        let response = await model.inspiration.findOne({
             where: {
                 uuid: req.params.uuid
             }
         })
-        if (response.length > 0) {
-            res.status(200).json({
-                message: 'Article Inspiration finded!',
-                data: response
-            })
-        }else {
-            res.status(200).json({
-                message: 'not data entry',
-                data: []
-            })
-        }
+        res.status(200).json(response);
+        
     } catch (error) {
         console.log(error.message)
     }
@@ -51,7 +42,7 @@ controller.createIns = async(req, res) => {
             title: req.body.title,
             desk: req.body.desk,
             fill_content: req.body.fill_content,
-            img: req.body.img
+            img: req.file.path
         });
         res.status(201).json({msg: "Article Inspiration Created"});
     } catch (error) {
@@ -66,7 +57,7 @@ controller.updateIns = async(req, res) => {
             title: req.body.title,
             desk: req.body.desk,
             fill_content: req.body.fill_content,
-            img: req.body.img
+            img: req.file.path
         },{
             where: {
                 uuid: req.params.uuid

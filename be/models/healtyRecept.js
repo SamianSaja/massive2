@@ -8,7 +8,7 @@ const healtyRecept = db.define('healtyRecept', {
         primaryKey: true
     },
     food_name: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING,
         allowNull: false
     },
     ingredient: {

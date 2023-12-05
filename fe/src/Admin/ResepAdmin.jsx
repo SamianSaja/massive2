@@ -35,6 +35,16 @@ const ResepAdmin = () => {
     
   };
 
+  const deleteResep = async (id) => {
+    try {
+        await axios.delete(`http://localhost:5000/recept/${id}`);
+        getRecepts();
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
   return (
     <>
       <NavbarComponent />
@@ -92,7 +102,7 @@ const ResepAdmin = () => {
                         <td>{resep.food_name}</td>
                         <td>
                           <img
-                            src={resep.img}
+                            src={`http://localhost:5000/${resep.img}`}
                             alt="Gambar Contoh"
                             style={{
                               width: "160px",
@@ -102,8 +112,8 @@ const ResepAdmin = () => {
                           />
                         </td>
                         <td className="button">
-                          <button className="btn btn-primary px-3">Edit</button>
-                          <button className="btn btn-danger ms-lg-2 px-3 bg-danger">
+                          <Link to={`/editresep/${resep.uuid}`} className="btn btn-primary px-3">Edit</Link>
+                          <button onClick={() => deleteResep(resep.uuid)} className="btn btn-danger ms-lg-2 px-3 bg-danger">
                             Hapus
                           </button>
                         </td>
