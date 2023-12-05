@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 import { Row, Container } from "react-bootstrap";
 import HeaderDetail from "../components/HeaderDetail";
@@ -27,24 +27,23 @@ const DResep1 = () => {
 
   const getResep = async () => {
     try {
-      axios.get(`http://localhost:5000/recept`)
-      .then(res => setArticles(res.data.data))
-      .catch(err => console.log(err));
+      axios
+        .get(`http://localhost:5000/recept`)
+        .then((res) => setArticles(res.data.data))
+        .catch((err) => console.log(err));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
   };
 
   const getSelectedResep = async () => {
     const response = await axios.get(`http://localhost:5000/recept/${uuid}`);
-    console.log(response.data)
+    console.log(response.data);
     setFoodName(response.data.food_name);
     setIngredient(response.data.ingredient);
     setFoodMaking(response.data.food_making);
     setImg(response.data.img);
-  }
-
+  };
 
   return (
     <>

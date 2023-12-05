@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 import { Row, Col, Container } from "react-bootstrap";
 import HeaderDetail from "../components/HeaderDetail";
@@ -19,7 +19,6 @@ const DTips1 = () => {
   const [tips, setTips] = useState([]);
   const { uuid } = useParams();
 
-
   useEffect(() => {
     getSelectedTips();
     getTips();
@@ -27,35 +26,35 @@ const DTips1 = () => {
 
   const getTips = async () => {
     try {
-      axios.get(`http://localhost:5000/tips`)
-      .then(res => setTips(res.data.data))
-      .catch(err => console.log(err));
+      axios
+        .get(`http://localhost:5000/tips`)
+        .then((res) => setTips(res.data.data))
+        .catch((err) => console.log(err));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
   };
 
   const getSelectedTips = async () => {
     const response = await axios.get(`http://localhost:5000/tips/${uuid}`);
-    console.log(response.data)
+    console.log(response.data);
     setTitle(response.data.title);
     setFillContent(response.data.fill_content);
     setImg(response.data.img);
-    setCreated(response.data.createdAt)
-  }
+    setCreated(response.data.createdAt);
+  };
 
-  const hari = new Date(created_at).toLocaleString('id-ID', { weekday: 'long' });
-  const tanggal = new Date(created_at).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
-
+  const hari = new Date(created_at).toLocaleString("id-ID", {
+    weekday: "long",
+  });
+  const tanggal = new Date(created_at).toLocaleString("id-ID", {
+    timeZone: "Asia/Jakarta",
+  });
 
   return (
     <>
       <NavbarComponent />
-      <HeaderDetail
-        title={title}
-        date={`${hari}, ${tanggal}`}
-      />
+      <HeaderDetail title={title} date={`${hari}, ${tanggal}`} />
 
       <Container fluid className="d-flex content-detail">
         <Row>
@@ -66,16 +65,15 @@ const DTips1 = () => {
 
           <Col xs={4} className="col-lg-5 col-12">
             <h2>Artikel Terkait</h2>
-          {tips.map((data, i) => ( 
-            <CardArtikel
-              imgCard={`http://localhost:5000/${data.img}`}
-              titleCard={data.title}
-            >
-              <CtaBtnSmall />
-              <Bagikan />
-            </CardArtikel>
-            
-            ))}; 
+            {tips.map((data, i) => (
+              <CardArtikel
+                imgCard={`http://localhost:5000/${data.img}`}
+                titleCard={data.title}
+              >
+                <CtaBtnSmall />
+              </CardArtikel>
+            ))}
+            <Bagikan />
           </Col>
         </Row>
       </Container>

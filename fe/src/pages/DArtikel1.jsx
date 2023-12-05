@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 import { Row, Col, Container } from "react-bootstrap";
 import HeaderDetail from "../components/HeaderDetail";
@@ -10,7 +10,7 @@ import DesKolom from "../components/DesKolom";
 import CtaBtnSmall from "../components/CtaBtnSmall";
 import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const DArtikel1 = () => {
   const [title, setTitle] = useState("");
@@ -18,7 +18,6 @@ const DArtikel1 = () => {
   const [img, setImg] = useState("");
   const [created_at, setCreated] = useState();
   const [articles, setArticles] = useState([]);
-
 
   // const [article, setSelectedArticle] = useState([]);
   const { uuid } = useParams();
@@ -30,28 +29,31 @@ const DArtikel1 = () => {
 
   const getArticle = async () => {
     try {
-      axios.get(`http://localhost:5000/articles`)
-      .then(res => setArticles(res.data.data))
-      .catch(err => console.log(err));
+      axios
+        .get(`http://localhost:5000/articles`)
+        .then((res) => setArticles(res.data.data))
+        .catch((err) => console.log(err));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
   };
 
   const getSelectedArticle = async () => {
     const response = await axios.get(`http://localhost:5000/articles/${uuid}`);
-    console.log(response.data)
+    console.log(response.data);
     // setuuid(response.data.uuid);
     setTitle(response.data.title);
     setFillContent(response.data.fill_content);
     setImg(response.data.img);
-    setCreated(response.data.createdAt)
-  }
+    setCreated(response.data.createdAt);
+  };
 
-  const hari = new Date(created_at).toLocaleString('id-ID', { weekday: 'long' });
-  const tanggal = new Date(created_at).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
-
+  const hari = new Date(created_at).toLocaleString("id-ID", {
+    weekday: "long",
+  });
+  const tanggal = new Date(created_at).toLocaleString("id-ID", {
+    timeZone: "Asia/Jakarta",
+  });
 
   return (
     <>
@@ -73,24 +75,23 @@ const DArtikel1 = () => {
 
             paragraphs={fill_content}
           />
-          
+
           <Col xs={4} className="col-lg-5 col-12">
             <h2>Artikel Terkait</h2>
-          {articles.map((data, i) => ( 
-            <CardArtikel
-              // title="Artikel Terkait"
-              imgCard={`http://localhost:5000/${data.img}`}
-              titleCard={data.title}
-            >
-              <Link to={`/dartikel/${data.uuid}`}>
-                <CtaBtnSmall />
-              </Link>
-              <Bagikan />
-            </CardArtikel>
-            
-            ))}; 
+            {articles.map((data, i) => (
+              <CardArtikel
+                // title="Artikel Terkait"
+                imgCard={`http://localhost:5000/${data.img}`}
+                titleCard={data.title}
+              >
+                <Link to={`/dartikel/${data.uuid}`}>
+                  <CtaBtnSmall />
+                </Link>
+              </CardArtikel>
+            ))}
+
+            <Bagikan />
           </Col>
-          
         </Row>
       </Container>
       <Footer />
