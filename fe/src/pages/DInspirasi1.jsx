@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 import { Row, Col, Container } from "react-bootstrap";
 import HeaderDetail from "../components/HeaderDetail";
@@ -27,35 +27,35 @@ const DInspirasi1 = () => {
 
   const getIns = async () => {
     try {
-      axios.get(`http://localhost:5000/ins`)
-      .then(res => setIns(res.data.data))
-      .catch(err => console.log(err));
+      axios
+        .get(`http://localhost:5000/ins`)
+        .then((res) => setIns(res.data.data))
+        .catch((err) => console.log(err));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
   };
 
   const getSelectedIns = async () => {
     const response = await axios.get(`http://localhost:5000/ins/${uuid}`);
-    console.log(response.data)
+    console.log(response.data);
     setTitle(response.data.title);
     setFillContent(response.data.fill_content);
     setImg(response.data.img);
-    setCreated(response.data.createdAt)
-  }
+    setCreated(response.data.createdAt);
+  };
 
-  const hari = new Date(created_at).toLocaleString('id-ID', { weekday: 'long' });
-  const tanggal = new Date(created_at).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
-
+  const hari = new Date(created_at).toLocaleString("id-ID", {
+    weekday: "long",
+  });
+  const tanggal = new Date(created_at).toLocaleString("id-ID", {
+    timeZone: "Asia/Jakarta",
+  });
 
   return (
     <>
       <NavbarComponent />
-      <HeaderDetail
-        title={title}
-        date={`${hari}, ${tanggal}`}
-      />
+      <HeaderDetail title={title} date={`${hari}, ${tanggal}`} />
 
       <Container fluid className="d-flex content-detail">
         <Row>
@@ -69,21 +69,21 @@ const DInspirasi1 = () => {
             //   " Artikel tersebut memberikan inspirasi kepada pembaca untuk percaya pada kemampuan mereka sendiri untuk mengatasi tantangan, menerapkan perubahan positif dalam hidup, dan meraih kebahagiaan yang sejati.",
             // ]}
             paragraphs={fill_content}
-
           />
 
           <Col xs={4} className="col-5">
-          <h2>Artikel Terkait</h2>
-          {ins.map((data, i) => ( 
-            <CardArtikel
-              // title="Artikel Terkait"
-              imgCard={`http://localhost:5000/${data.img}`}
-              titleCard={data.title}
-            >
-              <CtaBtnSmall />
-              <Bagikan />
-            </CardArtikel>
-          ))}; 
+            <h2>Artikel Terkait</h2>
+            {ins.map((data, i) => (
+              <CardArtikel
+                // title="Artikel Terkait"
+                imgCard={`http://localhost:5000/${data.img}`}
+                titleCard={data.title}
+              >
+                <CtaBtnSmall />
+              </CardArtikel>
+            ))}
+
+            <Bagikan />
           </Col>
         </Row>
       </Container>
