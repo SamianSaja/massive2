@@ -26,7 +26,7 @@ const NavbarAkun = () => {
     } catch (error) {
       if(error.response) {
         setResponse(null)
-        // navigate("/login")
+        navigate("/login")
       }
     }
   };
