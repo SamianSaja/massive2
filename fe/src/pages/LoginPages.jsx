@@ -17,7 +17,7 @@ const LoginPages = () => {
   // };
 
 
-  const [phone_number, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [msg, setMsg] = useState('');
   const navigate = useNavigate();
@@ -29,10 +29,16 @@ const LoginPages = () => {
     // formData.append('password', password);
     try {
         await axios.post('http://localhost:5000/login', {
-          phone_number: phone_number,
+          phone_number: phoneNumber,
           password: password
         });
-        navigate("/");
+
+        if(phoneNumber=='admin'&&password=='adminkalt') {
+          navigate("/addartikelA");
+        }else {
+          navigate("/");
+        }
+        
     } catch (error) {
         if(error.response){
           setMsg(error.response.data.msg);
@@ -71,7 +77,7 @@ const LoginPages = () => {
               <input 
               type="text" 
               placeholder="Masukkan Email atau No Hp" 
-              value={phone_number}
+              value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
