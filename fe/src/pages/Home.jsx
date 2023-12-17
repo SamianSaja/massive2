@@ -7,6 +7,8 @@ import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import NavbarAkun from "../components/NavbarAkun";
+import ChatBot from "../components/ChatBot";
 
 const Home = () => {
   useEffect(() => {
@@ -98,7 +100,7 @@ const Home = () => {
 
   return (
     <>
-      <NavbarComponent />
+      <NavbarAkun />
       <div className="content ">
         <div>
           <img
@@ -131,6 +133,7 @@ const Home = () => {
               <img src="/img/imghome/imghome2.png" alt="hay" />
             </div>
           </Col>
+          <ChatBot />
         </Row>
       </div>
       <div className="informatif animate-on-scroll">

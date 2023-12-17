@@ -1,7 +1,7 @@
 import express from 'express'
 import controller from './../controllers/index.js'
 import { verifyToken } from '../middleware/verifyToken.js'
-// const controller = require('../controllers/index.js')
+// // const controller = require('../controllers/index.js')
 
 const router = express.Router()
 

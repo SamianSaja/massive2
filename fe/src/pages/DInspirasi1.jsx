@@ -8,7 +8,7 @@ import CardArtikel from "../components/CardArtikel";
 import Bagikan from "../components/Bagikan";
 import DesKolom from "../components/DesKolom";
 import CtaBtnSmall from "../components/CtaBtnSmall";
-import NavbarComponent from "../components/Navbar";
+import NavbarAkun from "../components/NavbarAkun"
 import Footer from "../components/Footer";
 
 const DInspirasi1 = () => {
@@ -18,6 +18,7 @@ const DInspirasi1 = () => {
   const [img, setImg] = useState("");
   const [created_at, setCreated] = useState();
   const [ins, setIns] = useState([]);
+  const [selectedIns, setSelectedIns] = useState([]);
   const { uuid } = useParams();
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const DInspirasi1 = () => {
     try {
       axios
         .get(`http://localhost:5000/ins`)
-        .then((res) => setIns(res.data.data))
+        .then((res) => setIns(res.data))
         .catch((err) => console.log(err));
     } catch (error) {
       console.log(error);
@@ -37,56 +38,59 @@ const DInspirasi1 = () => {
   };
 
   const getSelectedIns = async () => {
-    const response = await axios.get(`http://localhost:5000/ins/${uuid}`);
-    console.log(response.data);
-    setTitle(response.data.title);
-    setFillContent(response.data.fill_content);
-    setImg(response.data.img);
-    setCreated(response.data.createdAt);
+    try {
+      axios
+        .get(`http://localhost:5000/ins/${uuid}`)
+        .then((res) => setSelectedIns(res.data))
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const hari = new Date(created_at).toLocaleString("id-ID", {
-    weekday: "long",
-  });
-  const tanggal = new Date(created_at).toLocaleString("id-ID", {
-    timeZone: "Asia/Jakarta",
-  });
 
   return (
     <>
-      <NavbarComponent />
-      <HeaderDetail title={title} date={`${hari}, ${tanggal}`} />
+      <NavbarAkun />
+      {selectedIns.map((inspirasi, i) => {
+          const hari = new Date(inspirasi.createdAt).toLocaleString("id-ID", {
+            weekday: "long",
+          });
+          const tanggal = new Date(inspirasi.createdAt).toLocaleString("id-ID", {
+            timeZone: "Asia/Jakarta",
+          });
 
-      <Container fluid className="d-flex content-detail">
-        <Row>
-          <DesKolom
-            imgDetail={`http://localhost:5000/${img}`}
-            // paragraphs={[
-            //   'Dalam artikel yang diterbitkan di Fimela, kita diperkenalkan dengan perjalanan menginspirasi Katie Milner, seorang guru sekolah dasar berusia 22 tahun yang berhasil mengatasi tantangan signifikan dalam hidupnya. Awalnya, Katie dipanggil "Miss Piggy" oleh sebagian orang karena berat badannya yang mencapai 100 kg dengan tinggi 152 cm. Cemoohan dan tekanan terhadap penampilannya membawa Katie pada titik di mana ia merasa perlu melakukan perubahan besar dalam hidupnya.',
-            //   "Dengan tekad yang kuat, Katie memutuskan untuk mengubah gaya hidup dan pola makan buruknya. Selama 3 tahun, ia menjalani program diet yang disiplin, meninggalkan kebiasaan makan 5 kantong snack per hari, cokelat, dan berbagai makanan siap saji lainnya. Hasilnya, Katie berhasil menurunkan berat badannya sebanyak 40 kg, mencapai berat badan 64 kg.",
-            //   "Selama perjalanan penurunan berat badannya, Katie menghadapi berbagai rintangan, termasuk kesulitan menggunakan sepatu, sering merasakan sakit pada pergelangan kakinya, dan gejala asma yang membuatnya tidak nyaman. Namun, dedikasi dan ketekunannya membawa perubahan yang luar biasa. Artikel tersebut menyoroti bahwa perubahan bukan hanya terjadi pada tingkat fisik, tetapi juga pada kesehatan keseluruhan Katie.",
-            //   "Meskipun sering terlihat dengan senyuman di foto, Katie mengungkapkan bahwa sebelumnya ia merasa minder dan tidak bahagia dengan tubuhnya. Namun, keberhasilannya dalam perjalanan penurunan berat badan membawa kebahagiaan dan kepercayaan diri yang sebenarnya. Kini, Katie tidak hanya memiliki tubuh yang lebih sehat, tetapi juga menikmati perbedaan positif dalam kehidupan percintaannya, dengan banyak pria yang mulai memperhatikannya.",
-            //   " Artikel tersebut memberikan inspirasi kepada pembaca untuk percaya pada kemampuan mereka sendiri untuk mengatasi tantangan, menerapkan perubahan positif dalam hidup, dan meraih kebahagiaan yang sejati.",
-            // ]}
-            paragraphs={fill_content}
-          />
+          return (
+            <div key={i}>
+              <HeaderDetail title={inspirasi.title} date={`${hari}, ${tanggal}`} />
+              
+              <Container fluid className="d-flex content-detail">
+                <Row>
+                  <DesKolom
+                    imgDetail={`http://localhost:5000/${inspirasi.img}`}
+                    paragraphs={inspirasi.fill_content}
+                  />
 
-          <Col xs={4} className="col-5">
-            <h2>Artikel Terkait</h2>
-            {ins.map((data, i) => (
-              <CardArtikel
-                // title="Artikel Terkait"
-                imgCard={`http://localhost:5000/${data.img}`}
-                titleCard={data.title}
-              >
-                <CtaBtnSmall />
-              </CardArtikel>
-            ))}
-
-            <Bagikan />
-          </Col>
-        </Row>
-      </Container>
+                  <Col xs={4} className="col-lg-5 col-12">
+                    <h2>Artikel Terkait</h2>
+                  {ins.map((data, i) => ( 
+                    <CardArtikel
+                      // title="Artikel Terkait"
+                      imgCard={`http://localhost:5000/${data.img}`}
+                      titleCard={data.title}
+                    >
+                      <CtaBtnSmall/>
+                      
+                      <Bagikan />
+                    </CardArtikel>
+                    
+                    ))}
+                  </Col>
+                </Row>
+              </Container>
+            </div>
+          )
+        })}
       <Footer />
     </>
   );

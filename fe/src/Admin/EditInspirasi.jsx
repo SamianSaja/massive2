@@ -10,28 +10,29 @@ import NavbarComponent from "../components/Navbar";
 import { Link } from "react-router-dom";
 
 const EditInspirasi = () => {
-//   let [uuid, setuuid] = useState("");
-  const [title, setTitle] = useState("");
-  const [desk, setDesk] = useState("");
-  const [fill_content, setFillContent] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [img, setImg] = useState("");
+  const [selectedIns, setSelectedIns] = useState([]);
 
   const navigate = useNavigate();
   const { uuid } = useParams();
 
   
   useEffect(() => {
-    getInsById();
+    getSelectedIns();
   }, []);
 
   const updateIns = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('uuid', uuid);
-    formData.append('title', title);
-    formData.append('desk', desk);
-    formData.append('fill_content', fill_content);
+    selectedIns.map((ins) => {
+      formData.append('title', ins.title);
+      formData.append('desk', ins.desk);
+      formData.append('fill_content', ins.fill_content);
+      
+      return ins;
+    });
     formData.append('img', img);
 
     try {
@@ -46,26 +47,16 @@ const EditInspirasi = () => {
     }
   };
 
-  const getInsById = async () => {
-    const response = await axios.get(`http://localhost:5000/ins/${uuid}`);
-    console.log(response.data.title)
-    // setuuid(response.data.uuid);
-    setTitle(response.data.title);
-    setDesk(response.data.desk);
-    setFillContent(response.data.fill_content);
-    setImg(response.data.img);
-  }
-
-// const getSelectedArticle = async (uuid) => {
-//     try {
-//       axios.get(`http://localhost:5000/articles/${uuid}`)
-//       .then(res => setSelectedArticle(res.data.data))
-//       .catch(err => console.log(err));
-//     } catch (error) {
-//       console.log(error)
-//     }
+const getSelectedIns = async () => {
+    try {
+      axios.get(`http://localhost:5000/ins/${uuid}`)
+      .then(res =>console.log(setSelectedIns(res.data)))
+      .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error)
+    }
     
-//   };
+  };
 
 
   const handleImageChange = (event) => {
@@ -82,22 +73,11 @@ const EditInspirasi = () => {
     }
   };
 
-  // const handleImageChange = (event) => {
-  //   const file = event.target.files[0];
-  //   setImg(`img/${file.name}`);
-    
-  // }
 
   const handleRemoveImage = () => {
     setSelectedImage(null);
   };
 
-//   setuuid = () => {
-//     return uuid = "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
-//       (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-//     );
-//   }
-//   setuuid()
 
   return (
     <>
@@ -146,6 +126,7 @@ const EditInspirasi = () => {
               <h3 className="text-center fw-bold mb-3">
                 Edit <span> Inspirasi </span>
               </h3>
+              {selectedIns.map((ins, index) => (
               <form>
                 <div className="mb-3">
                   <label htmlFor="article-title" className="form-label">
@@ -157,8 +138,12 @@ const EditInspirasi = () => {
                     className="form-control"
                     id="article-title"
                     name="article-title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={ins.title}
+                    onChange={(e) => {
+                      const updated = [...selectedIns];
+                      updated[index] = { ...ins, title: e.target.value };
+                      selectedIns(updated);
+                    }}
                   />
                 </div>
 
@@ -172,8 +157,12 @@ const EditInspirasi = () => {
                     id="article-content"
                     name="article-content"
                     rows="8"
-                    value={desk}
-                    onChange={(e) => setDesk(e.target.value)}
+                    value={ins.desk}
+                    onChange={(e) => {
+                      const updated = [...selectedIns];
+                      updated[index] = { ...ins, desk: e.target.value };
+                      setSelectedIns(updated);
+                    }}
                   ></textarea>
                 </div>
 
@@ -226,11 +215,13 @@ const EditInspirasi = () => {
                   <div className="App">
                     <CKEditor
                         editor={ ClassicEditor }
-                        data={fill_content}
+                        data={ins.fill_content}
                             
                         onChange={ ( event, editor) => {
                           const data = editor.getData();
-                          setFillContent(data);
+                          const updated = [...selectedIns];
+                          updated[index] = { ...ins, fill_content: data };
+                          selectedIns(updated);
                       } }
 
                     />
@@ -244,6 +235,7 @@ const EditInspirasi = () => {
                   </button>
                 </div>
               </form>
+              ))}
             </div>
           </div>
         </div>

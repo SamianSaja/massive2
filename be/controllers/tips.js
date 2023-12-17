@@ -1,85 +1,49 @@
-import model from '../models/index.js'
+import db from '../config/db.js';
 const controller = {}
 
 controller.getTips = async(req, res) => {
-    try {
-        let response = await model.tips.findAll()
-        if (response.length > 0) {
-            res.status(200).json({
-                message: 'get tips and triks',
-                data: response
-            })
-        }else {
-            res.status(200).json({
-                message: 'not data entry',
-                data: []
-            })
-        }
-    } catch (error) {
-        console.log(error.message)
-    }
+    db.query('SELECT * FROM tips_triks', (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      });
 }
 
 controller.searchTips = async(req, res) => {
-    try {
-        let response = await model.tips.findOne({
-            where: {
-                uuid: req.params.uuid
-            }
-        })
-        res.status(200).json(response);
-        
-    } catch (error) {
-        console.log(error.message)
-    }
+    const id = req.params.uuid;
+    db.query(`SELECT * FROM tips_triks WHERE uuid = ?`, [id], (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      });
 }
 
-
 controller.createTips = async(req, res) => {
-    try {
-        await model.tips.create({
-            uuid: req.body.uuid,
-            title: req.body.title,
-            desk: req.body.desk,
-            fill_content: req.body.fill_content,
-            img: req.file.path
-        });
-        res.status(201).json({msg: "Tips and Triks Created"});
-    } catch (error) {
-        console.log(error.message);
-    }
+    const { uuid, title, desk, fill_content } = req.body;
+    const img = req.file.path;
+
+    db.query(`INSERT INTO tips_triks (uuid, title, desk, fill_content, img, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())`, [uuid, title, desk, fill_content, img], (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      });
 }
 
 controller.updateTips = async(req, res) => {
-    try {
-        await model.tips.update({
-            uuid: req.body.uuid,
-            title: req.body.title,
-            desk: req.body.desk,
-            fill_content: req.body.fill_content,
-            img: req.file.path
-        },{
-            where: {
-                uuid: req.params.uuid
-            }
-        });
-        res.status(200).json({msg: "Tips and Triks Updated"});
-    } catch (error) {
-        console.log(error.message);
-    }
+    const id = req.params.uuid;
+    const { uuid, title, desk, fill_content } = req.body;
+    const img = req.file.path;
+
+    db.query(`UPDATE tips_triks SET uuid = ?, title = ?, desk = ?, fill_content = ?, img = ?, updatedAt = NOW() WHERE uuid = ?`, [uuid, title, desk, fill_content, img, id], (err) => {
+       if (err) throw err;
+       res.json({ message: ' Tips updated', id });
+
+    })
 }
 
-controller.deleteTips= async(req, res) => {
-    try {
-        await model.tips.destroy({
-            where: {
-                uuid: req.params.uuid
-            }
-        });
-        res.status(200).json({msg: "Tips and Triks Deleted"});
-    } catch (error) {
-        console.log(error.message);
-    }
+controller.deleteTips = async(req, res) => {
+  const id = req.params.uuid;
+  db.query(`DELETE FROM tips_triks WHERE uuid = ?`, [id], (err) => {
+      if (err) throw err;
+      res.json({ message: 'Tips deleted' });
+    });
 }
 
 export default controller

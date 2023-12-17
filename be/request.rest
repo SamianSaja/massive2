@@ -1,6 +1,5 @@
 GET http://localhost:5000/users
 Authorization: bearer 
-
 ###
 POST http://localhost:5000/users
 Content-Type: application/json
@@ -10,8 +9,9 @@ Content-Type: application/json
     "email": "sams@gmail.com",
     "password": "samian",
     "confPassword": "samian",
-    "phone_number": 123,
-    "img": "art.jpg"
+    "phone_number": "088805403414",
+    "img": "art.jpg",
+    "username": "samiansaja"
 }
 
 ###
@@ -19,8 +19,8 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email": "sams@gmail.com",
-    "password": "samian"
+    "phone_number": "088805403414",
+    "password": "123",
 }
 
 ###

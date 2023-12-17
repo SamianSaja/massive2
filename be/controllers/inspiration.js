@@ -1,85 +1,49 @@
-import model from '../models/index.js'
+import db from '../config/db.js';
 const controller = {}
 
 controller.getIns = async(req, res) => {
-    try {
-        let response = await model.inspiration.findAll()
-        if (response.length > 0) {
-            res.status(200).json({
-                message: 'get  Inspiration article',
-                data: response
-            })
-        }else {
-            res.status(200).json({
-                message: 'not data entry',
-                data: []
-            })
-        }
-    } catch (error) {
-        console.log(error.message)
-    }
+    db.query('SELECT * FROM inspirations', (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      });
 }
 
 controller.searchIns = async(req, res) => {
-    try {
-        let response = await model.inspiration.findOne({
-            where: {
-                uuid: req.params.uuid
-            }
-        })
-        res.status(200).json(response);
-        
-    } catch (error) {
-        console.log(error.message)
-    }
+    const id = req.params.uuid;
+    db.query(`SELECT * FROM inspirations WHERE uuid = ?`, [id], (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      });
 }
 
-
 controller.createIns = async(req, res) => {
-    try {
-        await model.inspiration.create({
-            uuid: req.body.uuid,
-            title: req.body.title,
-            desk: req.body.desk,
-            fill_content: req.body.fill_content,
-            img: req.file.path
-        });
-        res.status(201).json({msg: "Article Inspiration Created"});
-    } catch (error) {
-        console.log(error.message);
-    }
+    const { uuid, title, desk, fill_content } = req.body;
+    const img = req.file.path;
+
+    db.query(`INSERT INTO inspirations (uuid, title, desk, fill_content, img, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())`, [uuid, title, desk, fill_content, img], (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      });
 }
 
 controller.updateIns = async(req, res) => {
-    try {
-        await model.inspiration.update({
-            uuid: req.body.uuid,
-            title: req.body.title,
-            desk: req.body.desk,
-            fill_content: req.body.fill_content,
-            img: req.file.path
-        },{
-            where: {
-                uuid: req.params.uuid
-            }
-        });
-        res.status(200).json({msg: "Inspiration Updated"});
-    } catch (error) {
-        console.log(error.message);
-    }
+    const id = req.params.uuid;
+    const { uuid, title, desk, fill_content } = req.body;
+    const img = req.file.path;
+
+    db.query(`UPDATE inspirations SET uuid = ?, title = ?, desk = ?, fill_content = ?, img = ?, updatedAt = NOW() WHERE uuid = ?`, [uuid, title, desk, fill_content, img, id], (err) => {
+       if (err) throw err;
+       res.json({ message: 'list article updated', id });
+
+    })
 }
 
-controller.deleteIns= async(req, res) => {
-    try {
-        await model.inspiration.destroy({
-            where: {
-                uuid: req.params.uuid
-            }
-        });
-        res.status(200).json({msg: "Inspiration Deleted"});
-    } catch (error) {
-        console.log(error.message);
-    }
+controller.deleteIns = async(req, res) => {
+  const id = req.params.uuid;
+  db.query(`DELETE FROM inspirations WHERE uuid = ?`, [id], (err) => {
+      if (err) throw err;
+      res.json({ message: 'article deleted' });
+    });
 }
 
 export default controller

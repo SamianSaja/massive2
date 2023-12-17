@@ -10,29 +10,31 @@ import NavbarComponent from "../components/Navbar";
 import { Link } from "react-router-dom";
 
 const EditArtikel = () => {
-//   let [uuid, setuuid] = useState("");
-  const [title, setTitle] = useState("");
-  const [desk, setDesk] = useState("");
-  const [fill_content, setFillContent] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [img, setImg] = useState("");
+  const [selectedArticle, setSelectedArticle] = useState([]);
 
   const navigate = useNavigate();
   const { uuid } = useParams();
 
   
   useEffect(() => {
-    getArtikelById();
+    getSelectedArticle();
   }, []);
 
   const updateArtikel = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('uuid', uuid);
-    formData.append('title', title);
-    formData.append('desk', desk);
-    formData.append('fill_content', fill_content);
+    selectedArticle.map((artikel) => {
+      formData.append('title', artikel.title);
+      formData.append('desk', artikel.desk);
+      formData.append('fill_content', artikel.fill_content);
+      
+      return artikel;
+    });
     formData.append('img', img);
+
 
     try {
         await axios.put(`http://localhost:5000/articles/${uuid}`, formData, {
@@ -46,26 +48,17 @@ const EditArtikel = () => {
     }
   };
 
-  const getArtikelById = async () => {
-    const response = await axios.get(`http://localhost:5000/articles/${uuid}`);
-    console.log(response.data.title)
-    // setuuid(response.data.uuid);
-    setTitle(response.data.title);
-    setDesk(response.data.desk);
-    setFillContent(response.data.fill_content);
-    setImg(response.data.img);
-  }
 
-// const getSelectedArticle = async (uuid) => {
-//     try {
-//       axios.get(`http://localhost:5000/articles/${uuid}`)
-//       .then(res => setSelectedArticle(res.data.data))
-//       .catch(err => console.log(err));
-//     } catch (error) {
-//       console.log(error)
-//     }
+const getSelectedArticle = async () => {
+    try {
+      axios.get(`http://localhost:5000/articles/${uuid}`)
+      .then(res => setSelectedArticle(res.data))
+      .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error)
+    }
     
-//   };
+  };
 
 
   const handleImageChange = (event) => {
@@ -82,22 +75,10 @@ const EditArtikel = () => {
     }
   };
 
-  // const handleImageChange = (event) => {
-  //   const file = event.target.files[0];
-  //   setImg(`img/${file.name}`);
-    
-  // }
 
   const handleRemoveImage = () => {
     setSelectedImage(null);
   };
-
-//   setuuid = () => {
-//     return uuid = "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
-//       (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-//     );
-//   }
-//   setuuid()
 
   return (
     <>
@@ -146,6 +127,7 @@ const EditArtikel = () => {
               <h3 className="text-center fw-bold mb-3">
                 Edit <span> Artikel </span>
               </h3>
+              {selectedArticle.map((artikel, index) => (
               <form>
                 <div className="mb-3">
                   <label htmlFor="article-title" className="form-label">
@@ -157,8 +139,12 @@ const EditArtikel = () => {
                     className="form-control"
                     id="article-title"
                     name="article-title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={artikel.title}
+                    onChange={(e) => {
+                      const updatedArticles = [...selectedArticle];
+                      updatedArticles[index] = { ...artikel, title: e.target.value };
+                      setSelectedArticle(updatedArticles);
+                    }}
                   />
                 </div>
 
@@ -172,8 +158,12 @@ const EditArtikel = () => {
                     id="article-content"
                     name="article-content"
                     rows="8"
-                    value={desk}
-                    onChange={(e) => setDesk(e.target.value)}
+                    value={artikel.desk}
+                    onChange={(e) => {
+                      const updatedArticles = [...selectedArticle];
+                      updatedArticles[index] = { ...artikel, desk: e.target.value };
+                      setSelectedArticle(updatedArticles);
+                    }}
                   ></textarea>
                 </div>
 
@@ -226,11 +216,13 @@ const EditArtikel = () => {
                   <div className="App">
                     <CKEditor
                         editor={ ClassicEditor }
-                        data={fill_content}
+                        data={artikel.fill_content}
                             
-                        onChange={ ( event, editor) => {
+                        onChange={ (event, editor) => {
                           const data = editor.getData();
-                          setFillContent(data);
+                          const updatedArticles = [...selectedArticle];
+                          updatedArticles[index] = { ...artikel, fill_content: data };
+                          setSelectedArticle(updatedArticles);
                       } }
 
                     />
@@ -244,6 +236,7 @@ const EditArtikel = () => {
                   </button>
                 </div>
               </form>
+              ))}
             </div>
           </div>
         </div>

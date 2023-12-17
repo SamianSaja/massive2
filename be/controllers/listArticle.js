@@ -1,86 +1,49 @@
-import model from '../models/index.js'
+import db from '../config/db.js';
 const controller = {}
 
 controller.getArticles = async(req, res) => {
-    try {
-        let response = await model.listArticle.findAll()
-        if (response.length > 0) {
-            res.status(200).json({
-                message: 'get method list article',
-                data: response
-            })
-        }else {
-            res.status(200).json({
-                message: 'not data entry',
-                data: []
-            })
-        }
-    } catch (error) {
-        console.log(error.message)
-    }
+    db.query('SELECT * FROM list_article', (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      });
 }
 
 controller.searchArticle = async(req, res) => {
-    try {
-        let response = await model.listArticle.findOne({
-            where: {
-                uuid: req.params.uuid
-            }
-        })
-        res.status(200).json(response);
-        
-    } catch (error) {
-        console.log(error.message)
-    }
+    const id = req.params.uuid;
+    db.query(`SELECT * FROM list_article WHERE uuid = ?`, [id], (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      });
 }
 
-
 controller.createArticle = async(req, res) => {
-    // console.log(req.file)
-    try {
-        await model.listArticle.create({
-            uuid: req.body.uuid,
-            title: req.body.title,
-            desk: req.body.desk,
-            fill_content: req.body.fill_content,
-            img: req.file.path
-        });
-        res.status(201).json({msg: "Article Created"});
-    } catch (error) {
-        console.log(error.message);
-    }
+    const { uuid, title, desk, fill_content } = req.body;
+    const img = req.file.path;
+
+    db.query(`INSERT INTO list_article (uuid, title, desk, fill_content, img, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())`, [uuid, title, desk, fill_content, img], (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      });
 }
 
 controller.updateArticle = async(req, res) => {
-    try {
-        await model.listArticle.update({
-            uuid: req.body.uuid,
-            title: req.body.title,
-            desk: req.body.desk,
-            fill_content: req.body.fill_content,
-            img: req.file.path
-        },{
-            where: {
-                uuid: req.params.uuid
-            }
-        });
-        res.status(200).json({msg: "Article Updated"});
-    } catch (error) {
-        console.log(error.message);
-    }
+    const id = req.params.uuid;
+    const { uuid, title, desk, fill_content } = req.body;
+    const img = req.file.path;
+
+    db.query(`UPDATE list_article SET uuid = ?, title = ?, desk = ?, fill_content = ?, img = ?, updatedAt = NOW() WHERE uuid = ?`, [uuid, title, desk, fill_content, img, id], (err) => {
+       if (err) throw err;
+       res.json({ message: 'list article updated', id });
+
+    })
 }
 
 controller.deleteArticle = async(req, res) => {
-    try {
-        await model.listArticle.destroy({
-            where: {
-                uuid: req.params.uuid
-            }
-        });
-        res.status(200).json({msg: "Article Deleted"});
-    } catch (error) {
-        console.log(error.message);
-    }
+  const id = req.params.uuid;
+  db.query(`DELETE FROM list_article WHERE uuid = ?`, [id], (err) => {
+      if (err) throw err;
+      res.json({ message: 'article deleted' });
+    });
 }
 
 export default controller

@@ -1,13 +1,3 @@
-// const Home = () => {
-//     return(
-//         <>
-        
-//         </>
-//     );
-// }
-
-// export default Home;
-
 import { Row, Col, Container } from "react-bootstrap";
 import SwiperHome from "../components/SwiperHome";
 import CardResep from "../components/CardResep";
@@ -18,6 +8,8 @@ import Footer from "../components/Footer";
 
 
 const HomeAfterLogin = () => {
+  
+
     return (
       <>
         <NavbarAkun />

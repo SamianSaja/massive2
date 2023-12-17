@@ -10,28 +10,29 @@ import NavbarComponent from "../components/Navbar";
 import { Link } from "react-router-dom";
 
 const EditTips = () => {
-//   let [uuid, setuuid] = useState("");
-  const [title, setTitle] = useState("");
-  const [desk, setDesk] = useState("");
-  const [fill_content, setFillContent] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [img, setImg] = useState("");
+  const [selectedTips, setSelectedTips] = useState([]);
 
   const navigate = useNavigate();
   const { uuid } = useParams();
 
   
   useEffect(() => {
-    getTipsById();
+    getSelectedTips();
   }, []);
 
   const updateTips = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('uuid', uuid);
-    formData.append('title', title);
-    formData.append('desk', desk);
-    formData.append('fill_content', fill_content);
+    selectedTips.map((tip) => {
+      formData.append('title', tip.title);
+      formData.append('desk', tip.desk);
+      formData.append('fill_content', tip.fill_content);
+      
+      return tip;
+    });
     formData.append('img', img);
 
     try {
@@ -46,25 +47,17 @@ const EditTips = () => {
     }
   };
 
-  const getTipsById = async () => {
-    const response = await axios.get(`http://localhost:5000/tips/${uuid}`);
-    console.log(response.data.title)
-    setTitle(response.data.title);
-    setDesk(response.data.desk);
-    setFillContent(response.data.fill_content);
-    setImg(response.data.img);
-  }
 
-// const getSelectedArticle = async (uuid) => {
-//     try {
-//       axios.get(`http://localhost:5000/articles/${uuid}`)
-//       .then(res => setSelectedArticle(res.data.data))
-//       .catch(err => console.log(err));
-//     } catch (error) {
-//       console.log(error)
-//     }
+const getSelectedTips = async () => {
+    try {
+      axios.get(`http://localhost:5000/tips/${uuid}`)
+      .then(res => setSelectedTips(res.data))
+      .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error)
+    }
     
-//   };
+  };
 
 
   const handleImageChange = (event) => {
@@ -81,22 +74,11 @@ const EditTips = () => {
     }
   };
 
-  // const handleImageChange = (event) => {
-  //   const file = event.target.files[0];
-  //   setImg(`img/${file.name}`);
-    
-  // }
 
   const handleRemoveImage = () => {
     setSelectedImage(null);
   };
 
-//   setuuid = () => {
-//     return uuid = "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
-//       (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-//     );
-//   }
-//   setuuid()
 
   return (
     <>
@@ -145,6 +127,7 @@ const EditTips = () => {
               <h3 className="text-center fw-bold mb-3">
                 Edit <span> Tips & Triks </span>
               </h3>
+              {selectedTips.map((tip, index) => (
               <form>
                 <div className="mb-3">
                   <label htmlFor="article-title" className="form-label">
@@ -156,8 +139,12 @@ const EditTips = () => {
                     className="form-control"
                     id="article-title"
                     name="article-title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={tip.title}
+                    onChange={(e) => {
+                      const updated = [...selectedTips];
+                      updated[index] = { ...tip, title: e.target.value };
+                      selectedTips(updated);
+                    }}
                   />
                 </div>
 
@@ -171,8 +158,12 @@ const EditTips = () => {
                     id="article-content"
                     name="article-content"
                     rows="8"
-                    value={desk}
-                    onChange={(e) => setDesk(e.target.value)}
+                    value={tip.desk}
+                    onChange={(e) => {
+                      const updated = [...selectedTips];
+                      updated[index] = { ...tip, desk: e.target.value };
+                      selectedTips(updated);
+                    }}
                   ></textarea>
                 </div>
 
@@ -225,11 +216,13 @@ const EditTips = () => {
                   <div className="App">
                     <CKEditor
                         editor={ ClassicEditor }
-                        data={fill_content}
+                        data={tip.fill_content}
                             
                         onChange={ ( event, editor) => {
                           const data = editor.getData();
-                          setFillContent(data);
+                          const updated = [...selectedTips];
+                          updated[index] = { ...tip, fill_content: data };
+                          selectedTips(updated);
                       } }
 
                     />
@@ -243,6 +236,7 @@ const EditTips = () => {
                   </button>
                 </div>
               </form>
+              ))}
             </div>
           </div>
         </div>

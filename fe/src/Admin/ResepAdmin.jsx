@@ -27,7 +27,7 @@ const ResepAdmin = () => {
   const getRecepts = async () => {
     try {
       axios.get('http://localhost:5000/recept')
-      .then(res => setRecepts(res.data.data))
+      .then(res => setRecepts(res.data))
       .catch(err => console.log(err));
     } catch (error) {
       console.log(error)

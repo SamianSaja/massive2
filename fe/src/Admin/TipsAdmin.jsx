@@ -31,7 +31,7 @@ const TipsAdmin = () => {
   const getTips = async () => {
     try {
       axios.get('http://localhost:5000/tips')
-      .then(res => setTips(res.data.data))
+      .then(res => setTips(res.data))
       .catch(err => console.log(err));
     } catch (error) {
       console.log(error)

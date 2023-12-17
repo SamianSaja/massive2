@@ -31,7 +31,7 @@ const InspirasiAdmin = () => {
   const getIns = async () => {
     try {
       axios.get('http://localhost:5000/ins')
-      .then(res => setIns(res.data.data))
+      .then(res => setIns(res.data))
       .catch(err => console.log(err));
     } catch (error) {
       console.log(error)

@@ -5,7 +5,7 @@ import { Row } from "react-bootstrap";
 import { CardItem } from "../components/CardItem";
 import { dataResep } from "../data/dataResep";
 import { Link } from "react-router-dom";
-import NavbarComponent from "../components/Navbar";
+import NavbarAkun from "../components/NavbarAkun"
 import Footer from "../components/Footer";
 
 const Resep = () => {
@@ -18,7 +18,7 @@ const Resep = () => {
   const getRecepts = async () => {
     try {
       axios.get('http://localhost:5000/recept')
-      .then(res => setRecepts(res.data.data))
+      .then(res => setRecepts(res.data))
       .catch(err => console.log(err));
     } catch (error) {
       console.log(error)
@@ -28,7 +28,7 @@ const Resep = () => {
 
   return (
     <>
-      <NavbarComponent />
+      <NavbarAkun />
       <Header
         titleSpan="Resep "
         titleH="Sehat"

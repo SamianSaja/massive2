@@ -5,24 +5,6 @@ import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import NavbarComponent from "../components/Navbar";
 
-// const isitabel = [
-//   {
-//     id: 1,
-//     judul: "Pola Makan Sehat",
-//     desc: "Pola makan menjadi kebiasan yang baik",
-//     artikel:
-//       "Upaya membiasakan anak-anak dengan makanan sehat ini harus dimulai sejak dini dengan memberikan asupan nutrisi yang seimbang. Kebiasaan makan yang sehat dapat membantu anak tumbuh dan berkembang dengan optimal dan mengurangi risiko terkena penyakit kronis di masa depan",
-//     img: "/img/artikel/1.png",
-//   },
-//   {
-//     id: 2,
-//     judul: "UNICEF dukung kampanye makanan sehat",
-//     desc: "Kampanye makanan sehat banyak di dukung oleh instansi pemerintah",
-//     artikel:
-//       "Para pemuda dari delapan negara berpartisipasi dalam sebuah kampanye yang didukung  UNICEF di Bangkok pada pekan ini",
-//     img: "/img/artikel/2.png",
-//   },
-// ];
 const ArtikelAdmin = () => {
   const [articles, setArticles] = useState([]);
 
@@ -34,7 +16,7 @@ const ArtikelAdmin = () => {
     try {
       axios
         .get("http://localhost:5000/articles")
-        .then((res) => setArticles(res.data.data))
+        .then((res) => setArticles(res.data))
         .catch((err) => console.log(err));
     } catch (error) {
       console.log(error);

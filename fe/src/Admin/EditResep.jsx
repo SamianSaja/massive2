@@ -11,19 +11,16 @@ import NavbarComponent from "../components/Navbar";
 import { Link } from "react-router-dom";
 
 const EditResep = () => {
-//   let [uuid, setuuid] = useState("");
-  const [food_name, setFood_name] = useState("");
-  const [ingredient, setIngredient] = useState("");
-  const [food_making, setFood_making] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [img, setImg] = useState("/img/artikel/1.png");
-  const [diet, setDiet] = useState(false);
+  // const [diet, setDiet] = useState(false);
+  const [selectedRecept, setSelectedRecept] = useState([]);
 
   const navigate = useNavigate();
   const { uuid } = useParams();
 
   useEffect(() => {
-    getResepById();
+    getSelectedRecept ();
   }, [])
 
 
@@ -31,11 +28,13 @@ const EditResep = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('uuid', uuid);
-    formData.append('food_name', food_name);
-    formData.append('ingredient', ingredient);
-    formData.append('food_making', food_making);
+    selectedRecept.map((recept) => {
+      formData.append('food_name', recept.food_name);
+      formData.append('ingredient', recept.ingredient);
+      formData.append('food_making', recept.food_making);
+      return recept;
+    });
     formData.append('img', img);
-    formData.append('diet', diet);
 
     try {
         await axios.put(`http://localhost:5000/recept/${uuid}`, formData, {
@@ -49,13 +48,16 @@ const EditResep = () => {
     }
   }
 
-  const getResepById = async () => {
-    const response = await axios.get(`http://localhost:5000/recept/${uuid}`);
-    setFood_name(response.data.food_name);
-    setIngredient(response.data.ingredient);
-    setFood_making(response.data.food_making);
-    setImg(response.data.img);
-  }
+  const getSelectedRecept = async () => {
+    try {
+      axios.get(`http://localhost:5000/recept/${uuid}`)
+      .then(res => setSelectedRecept(res.data))
+      .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -73,12 +75,6 @@ const EditResep = () => {
     setSelectedImage(null);
   };
 
-//   setuuid = () => {
-//     return uuid = "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
-//       (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-//     );
-//   }
-//   setuuid()
 
   return (
     <>
@@ -127,6 +123,7 @@ const EditResep = () => {
               <h3 className="text-center fw-bold mb-3">
                 Edit <span> Resep </span>
               </h3>
+              {selectedRecept.map((recept, index) => (
               <form>
                 <div className="mb-3">
                   <label htmlFor="article-title" className="form-label">
@@ -138,8 +135,12 @@ const EditResep = () => {
                     className="form-control"
                     id="article-title"
                     name="article-title"
-                    value={food_name}
-                    onChange={(e) => (setFood_name(e.target.value))}
+                    value={recept.food_name}
+                    onChange={(e) => {
+                      const updated = [...selectedRecept];
+                      updated[index] = { ...recept, food_name: e.target.value };
+                      setSelectedRecept(updated);
+                    }}
                   />
                 </div>
 
@@ -192,11 +193,13 @@ const EditResep = () => {
                   <div className="App">
                     <CKEditor
                         editor={ ClassicEditor }
-                        data={food_making}
+                        data={recept.food_making}
                             
                         onChange={ ( event, editor) => {
                           const data = editor.getData();
-                          setFood_making(data);
+                          const updated = [...selectedRecept];
+                          updated[index] = { ...recept, food_making: data };
+                          setSelectedRecept(updated);
                       } }
 
                     />
@@ -209,11 +212,13 @@ const EditResep = () => {
                   <div className="App">
                     <CKEditor
                         editor={ ClassicEditor }
-                        data={ingredient}
+                        data={recept.ingredient}
                             
                         onChange={ ( event, editor) => {
                           const data = editor.getData();
-                          setIngredient(data);
+                          const updated = [...selectedRecept];
+                          updated[index] = { ...recept, ingredient: data };
+                          setSelectedRecept(updated);
                       } }
 
                     />
@@ -227,6 +232,7 @@ const EditResep = () => {
                   </button>
                 </div>
               </form>
+              ))}
             </div>
           </div>
         </div>

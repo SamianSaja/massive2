@@ -6,7 +6,7 @@ import CtaBtn from "../components/CtaBtn";
 import { CardItem } from "../components/CardItem";
 import { dataTips } from "../data/dataTips";
 import { Link } from "react-router-dom";
-import NavbarComponent from "../components/Navbar";
+import NavbarAkun from "../components/NavbarAkun"
 import Footer from "../components/Footer";
 
 const TipsTrik = () => {
@@ -19,7 +19,7 @@ const TipsTrik = () => {
   const getTips = async () => {
     try {
       axios.get('http://localhost:5000/tips')
-      .then(res => setTips(res.data.data))
+      .then(res => setTips(res.data))
       .catch(err => console.log(err));
     } catch (error) {
       console.log(error)
@@ -29,7 +29,7 @@ const TipsTrik = () => {
 
   return (
     <>
-      <NavbarComponent />
+      <NavbarAkun />
       <Header
         titleSpan="Tips & "
         titleH="Trik"

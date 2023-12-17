@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import NavbarAkun from "../components/NavbarAkun";
 import { Modal } from "react-bootstrap";
 import Footer from "../components/Footer";
+// import { useNavigate } from "react-router-dom";
 
 const EditableField = ({ label, value, onEdit }) => {
   const [newValue, setNewValue] = useState("");
@@ -31,6 +35,8 @@ const EditableField = ({ label, value, onEdit }) => {
   );
 };
 
+
+
 const EditProfil = () => {
   // kode ubah gambar
   const [selectedImage, setSelectedImage] = useState(
@@ -51,9 +57,9 @@ const EditProfil = () => {
     }
   };
   // kode ubah form
-  const [email, setEmail] = useState("deaauriel@gmail.com");
-  const [name, setName] = useState("Auriel Dhea");
-  const [username, setUsername] = useState("deaauriel");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
 
   // kode modal simpan perubahan start
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -76,8 +82,17 @@ const EditProfil = () => {
 
   const handleCloseLogoutConfirmation = () =>
     setShowLogoutConfirmationModal(false);
-  const handleShowLogoutConfirmation = () =>
-    setShowLogoutConfirmationModal(true);
+  const handleShowLogoutConfirmation = async() => {
+    try {
+      const response = await axios.delete('http://localhost:5000/logout');
+      
+      setShowLogoutConfirmationModal(true)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
+    
 
   const handleLogout = () => {
     handleCloseLogoutConfirmation();
@@ -85,6 +100,60 @@ const EditProfil = () => {
   // kode modal logout end
 
   const handleSimpanClick = () => {};
+
+  // backend
+  const [token, setToken] = useState('');
+  const [expire, setExpire] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    refreshToken();
+    getUsers();
+  },[]);
+
+  const refreshToken = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/token');
+      setToken(response.data.accessToken);
+      const decoded = jwtDecode(response.data.accessToken);
+      console.log(decoded)
+      // setName(decoded.name);
+      setExpire(decoded.exp);
+    } catch (error) {
+      if(error.response) {
+        navigate("/login")
+      }
+    }
+  };
+
+  const axiosJWT = axios.create();
+
+  axiosJWT.interceptors.request.use(async(config) => {
+    const currentDate = new Date();
+    if(expire * 1000 < currentDate.getTime()) {
+      const response = await axios.get('http://localhost:5000/token');
+      config.headers.Authorization = `Bearer ${response.data.accessToken}`;
+      setToken(response.data.accessToken);
+      const decoded = jwtDecode(response.data.accessToken);
+      // console.log(decoded)
+      setName(decoded.name);
+      setUsername(decoded.username);
+      setEmail(decoded.phone_number);
+      setExpire(decoded.exp);
+    }
+    return config;
+  }, (error) => {
+    return Promise.reject(error);
+  })
+
+  const getUsers = async() => {
+    const response = await axiosJWT.get('http://localhost:5000/users', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    // console.log(response.data.data);
+  }
 
   return (
     <>
@@ -121,7 +190,7 @@ const EditProfil = () => {
               <div className="profile-image mt-lg-4 d-flex gap-3">
                 <img id="profile-img" src={selectedImage} alt="Profile Image" />
                 <div className="my-auto select-img">
-                  <h6 className="fw-bold">Auriel Dhea</h6>
+                  <h6 className="fw-bold">{name}</h6>
                   <span className="ubah bg-danger">
                     <input
                       type="file"
@@ -236,7 +305,7 @@ const EditProfil = () => {
               <div className="modal-ask ">
                 <p className="text-center">Apakah Anda yakin ingin keluar?</p>
                 <Link
-                  to="/"
+                  to="/login"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
                   <button className="modal-simpan " onClick={handleLogout}>

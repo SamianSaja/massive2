@@ -12,7 +12,7 @@ import inspiration from './routes/inspiration.js';
 import healtyRecept from './routes/healtyRecept.js';
 import user from './routes/user.js';
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(cookieParser());
 app.use(express.json()); 
 

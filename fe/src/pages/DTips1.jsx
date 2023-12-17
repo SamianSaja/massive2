@@ -8,15 +8,12 @@ import CardArtikel from "../components/CardArtikel";
 import Bagikan from "../components/Bagikan";
 import DesKolom from "../components/DesKolom";
 import CtaBtnSmall from "../components/CtaBtnSmall";
-import NavbarComponent from "../components/Navbar";
+import NavbarAkun from "../components/NavbarAkun"
 import Footer from "../components/Footer";
 
 const DTips1 = () => {
-  const [title, setTitle] = useState("");
-  const [fill_content, setFillContent] = useState("");
-  const [img, setImg] = useState("");
-  const [created_at, setCreated] = useState();
   const [tips, setTips] = useState([]);
+  const [selectedTips, setSelectedTips] = useState([]);
   const { uuid } = useParams();
 
   useEffect(() => {
@@ -28,7 +25,7 @@ const DTips1 = () => {
     try {
       axios
         .get(`http://localhost:5000/tips`)
-        .then((res) => setTips(res.data.data))
+        .then((res) => setTips(res.data))
         .catch((err) => console.log(err));
     } catch (error) {
       console.log(error);
@@ -36,47 +33,59 @@ const DTips1 = () => {
   };
 
   const getSelectedTips = async () => {
-    const response = await axios.get(`http://localhost:5000/tips/${uuid}`);
-    console.log(response.data);
-    setTitle(response.data.title);
-    setFillContent(response.data.fill_content);
-    setImg(response.data.img);
-    setCreated(response.data.createdAt);
+    try {
+      axios
+        .get(`http://localhost:5000/tips/${uuid}`)
+        .then((res) => setSelectedTips(res.data))
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const hari = new Date(created_at).toLocaleString("id-ID", {
-    weekday: "long",
-  });
-  const tanggal = new Date(created_at).toLocaleString("id-ID", {
-    timeZone: "Asia/Jakarta",
-  });
 
   return (
     <>
-      <NavbarComponent />
-      <HeaderDetail title={title} date={`${hari}, ${tanggal}`} />
+      <NavbarAkun />
+      {selectedTips.map((tip, i) => {
+          const hari = new Date(tip.createdAt).toLocaleString("id-ID", {
+            weekday: "long",
+          });
+          const tanggal = new Date(tip.createdAt).toLocaleString("id-ID", {
+            timeZone: "Asia/Jakarta",
+          });
 
-      <Container fluid className="d-flex content-detail">
-        <Row>
-          <DesKolom
-            imgDetail={`http://localhost:5000/${img}`}
-            paragraphs={fill_content}
-          />
+          return (
+            <div key={i}>
+              <HeaderDetail title={tip.title} date={`${hari}, ${tanggal}`} />
+              
+              <Container fluid className="d-flex content-detail">
+                <Row>
+                  <DesKolom
+                    imgDetail={`http://localhost:5000/${tip.img}`}
+                    paragraphs={tip.fill_content}
+                  />
 
-          <Col xs={4} className="col-lg-5 col-12">
-            <h2>Artikel Terkait</h2>
-            {tips.map((data, i) => (
-              <CardArtikel
-                imgCard={`http://localhost:5000/${data.img}`}
-                titleCard={data.title}
-              >
-                <CtaBtnSmall />
-              </CardArtikel>
-            ))}
-            <Bagikan />
-          </Col>
-        </Row>
-      </Container>
+                  <Col xs={4} className="col-lg-5 col-12">
+                    <h2>Artikel Terkait</h2>
+                  {tips.map((data, i) => ( 
+                    <CardArtikel
+                      // title="Artikel Terkait"
+                      imgCard={`http://localhost:5000/${data.img}`}
+                      titleCard={data.title}
+                    >
+                      <CtaBtnSmall/>
+                      
+                      <Bagikan />
+                    </CardArtikel>
+                    
+                    ))}
+                  </Col>
+                </Row>
+              </Container>
+            </div>
+          )
+        })}
       <Footer />
     </>
   );

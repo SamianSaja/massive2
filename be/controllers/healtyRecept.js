@@ -1,87 +1,50 @@
-import model from '../models/index.js'
+import db from '../config/db.js';
 const controller = {}
 
 controller.getRecepts = async(req, res) => {
-    try {
-        let response = await model.healtyRecept.findAll()
-        if (response.length > 0) {
-            res.status(200).json({
-                message: 'get method healty Recepts',
-                data: response
-            })
-        }else {
-            res.status(200).json({
-                message: 'not data entry',
-                data: []
-            })
-        }
-    } catch (error) {
-        console.log(error.message)
-    }
+    db.query('SELECT * FROM healty_recepts', (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      });
 }
 
 controller.searchRecept = async(req, res) => {
-    try {
-        let response = await model.healtyRecept.findOne({
-            where: {
-                uuid: req.params.uuid
-            }
-        })
-        res.status(200).json(response);
-        
-    } catch (error) {
-        console.log(error.message)
-    }
+    const id = req.params.uuid;
+    db.query(`SELECT * FROM healty_recepts WHERE uuid = ?`, [id], (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      });
 }
 
-
 controller.createRecept = async(req, res) => {
-    try {
-        await model.healtyRecept.create({
-            uuid: req.body.uuid,
-            food_name: req.body.food_name,
-            ingredient: req.body.ingredient,
-            food_making: req.body.food_making,
-            img: req.file.path,
-            diet: req.body.diet
-        });
-        res.status(201).json({msg: "Article healty Recept Created"});
-    } catch (error) {
-        console.log(error.message);
-    }
+    const { uuid, food_name, ingredient, food_making } = req.body;
+    const diet = false;
+    const img = req.file.path;
+
+    db.query(`INSERT INTO healty_recepts (uuid, food_name, ingredient, food_making, img, diet, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())`, [uuid, food_name, ingredient, food_making, img, diet], (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      });
 }
 
 controller.updateRecept = async(req, res) => {
-    try {
-        await model.healtyRecept.update({
-            uuid: req.body.uuid,
-            food_name: req.body.food_name,
-            ingredient: req.body.ingredient,
-            food_making: req.body.food_making,
-            img: req.file.path,
-            diet: req.body.diet
-        },{
-            where: {
-                uuid: req.params.uuid
-            }
-        });
-        res.status(200).json({msg: "Article  Healty Recept Updated"});
-    } catch (error) {
-        console.log(error.message);
-    }
+    const id = req.params.uuid;
+    const { uuid, food_name, ingredient, food_making, diet } = req.body;
+    const img = req.file.path;
+
+    db.query(`UPDATE healty_recepts SET uuid = ?, food_name = ?, ingredient = ?, food_making = ?, img = ?, diet = ?, updatedAt = NOW() WHERE uuid = ?`, [uuid, food_name, ingredient, food_making, img, diet, id], (err) => {
+       if (err) throw err;
+       res.json({ message: 'resep updated', id });
+
+    })
 }
 
 controller.deleteRecept = async(req, res) => {
-    try {
-        await model.healtyRecept.destroy({
-            where: {
-                uuid: req.params.uuid
-            }
-        });
-        res.status(200).json({msg: "Article Healty Recept Deleted"});
-    } catch (error) {
-        console.log(error.message);
-    }
+  const id = req.params.uuid;
+  db.query(`DELETE FROM healty_recepts WHERE uuid = ?`, [id], (err) => {
+      if (err) throw err;
+      res.json({ message: 'resep deleted' });
+    });
 }
 
 export default controller
