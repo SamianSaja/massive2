@@ -41,7 +41,7 @@ const EditInspirasi = () => {
             'Content-Type': 'multipart/form-data',
           },
         });
-        navigate("/inspirasi");
+        navigate("/addinspirasiA");
     } catch (error) {
         console.log(error);
     }
@@ -142,7 +142,7 @@ const getSelectedIns = async () => {
                     onChange={(e) => {
                       const updated = [...selectedIns];
                       updated[index] = { ...ins, title: e.target.value };
-                      selectedIns(updated);
+                      setSelectedIns(updated);
                     }}
                   />
                 </div>
@@ -221,7 +221,7 @@ const getSelectedIns = async () => {
                           const data = editor.getData();
                           const updated = [...selectedIns];
                           updated[index] = { ...ins, fill_content: data };
-                          selectedIns(updated);
+                          setSelectedIns(updated);
                       } }
 
                     />

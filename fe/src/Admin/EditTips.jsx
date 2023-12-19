@@ -41,7 +41,7 @@ const EditTips = () => {
             'Content-Type': 'multipart/form-data',
           },
         });
-        navigate("/tips");
+        navigate("/addtipsA");
     } catch (error) {
         console.log(error);
     }
@@ -143,7 +143,7 @@ const getSelectedTips = async () => {
                     onChange={(e) => {
                       const updated = [...selectedTips];
                       updated[index] = { ...tip, title: e.target.value };
-                      selectedTips(updated);
+                      setSelectedTips(updated);
                     }}
                   />
                 </div>
@@ -162,7 +162,7 @@ const getSelectedTips = async () => {
                     onChange={(e) => {
                       const updated = [...selectedTips];
                       updated[index] = { ...tip, desk: e.target.value };
-                      selectedTips(updated);
+                      setSelectedTips(updated);
                     }}
                   ></textarea>
                 </div>
@@ -222,7 +222,7 @@ const getSelectedTips = async () => {
                           const data = editor.getData();
                           const updated = [...selectedTips];
                           updated[index] = { ...tip, fill_content: data };
-                          selectedTips(updated);
+                          setSelectedTips(updated);
                       } }
 
                     />

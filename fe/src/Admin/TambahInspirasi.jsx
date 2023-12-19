@@ -33,7 +33,7 @@ const TambahInspirasi = () => {
             'Content-Type': 'multipart/form-data',
           },
         });
-        navigate("/inspirasi");
+        navigate("/addinspirasiA");
     } catch (error) {
         console.log(error);
     }

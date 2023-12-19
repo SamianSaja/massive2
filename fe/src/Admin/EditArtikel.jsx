@@ -42,7 +42,7 @@ const EditArtikel = () => {
             'Content-Type': 'multipart/form-data',
           },
         });
-        navigate("/artikel");
+        navigate("/addartikelA");
     } catch (error) {
         console.log(error);
     }

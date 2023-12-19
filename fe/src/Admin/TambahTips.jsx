@@ -34,7 +34,7 @@ const TambahTips = () => {
             'Content-Type': 'multipart/form-data',
           },
         });
-        navigate("/tips");
+        navigate("/addtipsA");
     } catch (error) {
         console.log(error);
     }

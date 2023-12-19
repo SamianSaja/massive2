@@ -35,7 +35,7 @@ const TambahResep = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      navigate("/resep");
+      navigate("/addresepA");
   } catch (error) {
       console.log(error);
   }
