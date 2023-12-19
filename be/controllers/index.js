@@ -4,6 +4,7 @@ import healtyRecept from './healtyRecept.js'
 import tips from './tips.js'
 import inspiration from './inspiration.js'
 import refreshToken from './refreshToken.js'
+import diet from './diet.js'
 
 
 const controller = {}
@@ -14,6 +15,6 @@ controller.healtyRecept = healtyRecept
 controller.tips = tips
 controller.inspiration = inspiration
 controller.refreshToken = refreshToken
-
+controller.diet = diet
 
 export default controller 

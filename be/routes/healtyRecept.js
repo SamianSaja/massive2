@@ -20,4 +20,8 @@ router.post('/recept', upload.single('img'), controller.healtyRecept.createRecep
 router.put('/recept/:uuid', upload.single('img'), controller.healtyRecept.updateRecept)
 router.delete('/recept/:uuid', controller.healtyRecept.deleteRecept)
 
+router.get('/saved/:user_id', controller.healtyRecept.getSaved)
+router.post('/saved', controller.healtyRecept.addSaved)
+
+
 export default router;  

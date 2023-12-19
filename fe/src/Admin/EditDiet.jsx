@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -10,36 +10,57 @@ import NavbarComponent from "../components/Navbar";
 
 import { Link } from "react-router-dom";
 
-const TambahResep = () => {
-  let [uuid, setuuid] = useState("");
-  const [food_name, setFood_name] = useState("");
-  const [ingredient, setIngredient] = useState("");
-  const [food_making, setFood_making] = useState("");
+const EditDiet = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [img, setImg] = useState("/img/artikel/1.png");
-  const [diet, setDiet] = useState(false);
+  // const [diet, setDiet] = useState(false);
+  const [selectedRecept, setSelectedRecept] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+
   const navigate = useNavigate();
-  const saveResep = async (e) => {
+  const { uuid } = useParams();
+
+  useEffect(() => {
+    getSelectedRecept ();
+  }, [])
+
+
+  const updateResep = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('uuid', uuid);
-    formData.append('food_name', food_name);
-    formData.append('ingredient', ingredient);
-    formData.append('food_making', food_making);
+    selectedRecept.map((recept) => {
+      formData.append('food_name', recept.food_name);
+      formData.append('ingredient', recept.ingredient);
+      formData.append('food_making', recept.food_making);
+      return recept;
+    });
     formData.append('img', img);
-    // formData.append('diet', numericValue);
-    
+    formData.append('category', selectedCategory);
+
     try {
-      await axios.post('http://localhost:5000/recept', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      navigate("/resep");
-  } catch (error) {
-      console.log(error);
+        await axios.put(`http://localhost:5000/diet/${uuid}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        navigate("/adddietA");
+    } catch (error) {
+        console.log(error);
+    }
   }
-  }
+
+  const getSelectedRecept = async () => {
+    try {
+      axios.get(`http://localhost:5000/diet/${uuid}`)
+      .then(res => setSelectedRecept(res.data))
+      .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -57,63 +78,58 @@ const TambahResep = () => {
     setSelectedImage(null);
   };
 
-  setuuid = () => {
-    return uuid = "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
-      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-    );
-  }
-  setuuid()
-
-  // const handleCheckboxChange = () => {
-  //   setDiet(!diet);
-  // };
-
-  // const numericValue = diet ? 1 : 0;
-  // console.log(numericValue)
-
+  const handleRadioChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
 
   return (
     <>
       <NavbarComponent />
       <div className="tambah container-fluid" style={{ marginTop: "70px" }}>
         <div className="row">
-          <div className="tambah-menu col-lg-2">
-            <li>
-              <Link to="/tambahartikel" className="text-decoration-none ">
-                Tambah Artikel
-              </Link>
-            </li>
-            <li>
+        <div className="tambah-menu col-lg-2">
+            {/* <li>
               <Link to="#" className="text-decoration-none add-active">
-                Tambah Resep
+                Edit Artikel
+              </Link>
+            </li> */}
+            <li>
+            <Link
+                to="/addartikelA" className="text-decoration-none">
+                Lihat Tabel Artikel
               </Link>
             </li>
             <li>
-              <Link to="/tambahinspirasi" className="text-decoration-none">
-                Tambah Inspirasi
-              </Link>
-            </li>
-            <li>
-              <Link to="/tambahtips" className="text-decoration-none">
-                Tambah Tips & Trik
-              </Link>
-            </li>
-            <li>
-              <Link to="/tambahdiet" className="text-decoration-none">
-                Tambah Diet Khusus
-              </Link>
-            </li>
-            <li>
-              <Link to="/addresepA" className="text-decoration-none text-info">
+            <Link
+                to="/addresepA" className="text-decoration-none">
                 Lihat Tabel Resep
+              </Link>
+            </li>
+            <li>
+            <Link
+                to="/addinspirasiA" className="text-decoration-none">
+                Lihat Tabel Inspirasi
+              </Link>
+            </li>
+            <li>
+            <Link
+                to="/addtipsA" className="text-decoration-none">
+                Lihat Tabel Tips & Triks
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/adddietA" className="text-decoration-none">
+                Lihat Tabel Diet
               </Link>
             </li>
           </div>
           <div className="col-lg-10">
             <div className="form-container ms-3  float-start">
               <h3 className="text-center fw-bold mb-3">
-                Tambah <span> Resep </span>
+                Edit <span> Resep </span>
               </h3>
+              {selectedRecept.map((recept, index) => (
               <form>
                 <div className="mb-3">
                   <label htmlFor="article-title" className="form-label">
@@ -125,8 +141,12 @@ const TambahResep = () => {
                     className="form-control"
                     id="article-title"
                     name="article-title"
-                    value={food_name}
-                    onChange={(e) => (setFood_name(e.target.value))}
+                    value={recept.food_name}
+                    onChange={(e) => {
+                      const updated = [...selectedRecept];
+                      updated[index] = { ...recept, food_name: e.target.value };
+                      setSelectedRecept(updated);
+                    }}
                   />
                 </div>
 
@@ -172,19 +192,38 @@ const TambahResep = () => {
                   </div>
                 </div>
 
-                {/* <div className="mb-3">
-                  <label htmlFor="article-content" className="form-label">
-                    Diet? 
-                  </label>
+                <div className="mb-3">
+                  <label className="form-label">
+                    Kategori :
+                  </label><br/>
                   <input 
-                  type="checkbox"
-                  id='article-diet'
-                  name='article-diet'
-                  checked={diet}
-                  onChange={handleCheckboxChange}
-                  className='m-3'
+                    type="radio" 
+                    id="html" 
+                    name="category" 
+                    value="Diabetik"
+                    checked={selectedCategory === 'Diabetik'}
+                    onChange={handleRadioChange}
                   />
-                </div> */}
+                  <label for="html" className='m-2'>Diabetik</label><br/>
+                  <input 
+                    type="radio" 
+                    id="css" 
+                    name="category"
+                    value="Vegetarian"
+                    checked={selectedCategory === 'Vegetarian'}
+                    onChange={handleRadioChange}
+                  />
+                  <label for="css" className='m-2'>Vegetarian</label><br/>
+                  <input 
+                    type="radio" 
+                    id="javascript" 
+                    name="category" 
+                    value="Vegan"
+                    checked={selectedCategory === 'Vegan'}
+                    onChange={handleRadioChange}
+                  />
+                  <label for="javascript" className='m-2'>Vegan</label>
+                </div>
 
                 <div className="mb-3">
                   <label htmlFor="article-content" className="form-label">
@@ -193,11 +232,13 @@ const TambahResep = () => {
                   <div className="App">
                     <CKEditor
                         editor={ ClassicEditor }
-                        data={food_making}
+                        data={recept.food_making}
                             
                         onChange={ ( event, editor) => {
                           const data = editor.getData();
-                          setFood_making(data);
+                          const updated = [...selectedRecept];
+                          updated[index] = { ...recept, food_making: data };
+                          setSelectedRecept(updated);
                       } }
 
                     />
@@ -210,24 +251,27 @@ const TambahResep = () => {
                   <div className="App">
                     <CKEditor
                         editor={ ClassicEditor }
-                        data={ingredient}
+                        data={recept.ingredient}
                             
                         onChange={ ( event, editor) => {
                           const data = editor.getData();
-                          setIngredient(data);
+                          const updated = [...selectedRecept];
+                          updated[index] = { ...recept, ingredient: data };
+                          setSelectedRecept(updated);
                       } }
 
                     />
-                </div>
+                  </div>
                 </div>
 
                 <div className="mb-3 button  ">
-                  <button type="submit" onClick={saveResep}>Publikasi</button>
+                  <button type="submit" onClick={updateResep}>Publikasi</button>
                   <button type="button" className="ms-lg-4">
                     Batal
                   </button>
                 </div>
               </form>
+              ))}
             </div>
           </div>
         </div>
@@ -236,4 +280,4 @@ const TambahResep = () => {
   );
 };
 
-export default TambahResep;
+export default EditDiet;

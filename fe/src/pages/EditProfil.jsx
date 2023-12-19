@@ -105,6 +105,7 @@ const EditProfil = () => {
   const [token, setToken] = useState('');
   const [expire, setExpire] = useState('');
   const navigate = useNavigate();
+  const [userId, setUserId] = useState();
 
   useEffect(() => {
     refreshToken();
@@ -140,6 +141,7 @@ const EditProfil = () => {
       setUsername(decoded.username);
       setEmail(decoded.phone_number);
       setExpire(decoded.exp);
+      setUserId(decoded.userId)
     }
     return config;
   }, (error) => {
@@ -172,7 +174,7 @@ const EditProfil = () => {
                 <Link to="/password">kata Sandi</Link>
               </li>
               <li>
-                <Link to="/tersimpan">Tersimpan</Link>
+                <Link to={`/tersimpan/${userId}`}>Tersimpan</Link>
               </li>
               <Link
                 to="#"
@@ -188,7 +190,7 @@ const EditProfil = () => {
             <h5 className="fw-bold">Edit Profil</h5>
             <div>
               <div className="profile-image mt-lg-4 d-flex gap-3">
-                <img id="profile-img" src={selectedImage} alt="Profile Image" />
+                <img id="profile-img" src="/img/imgprofil/images.png" alt="Profile Image" />
                 <div className="my-auto select-img">
                   <h6 className="fw-bold">{name}</h6>
                   <span className="ubah bg-danger">
@@ -199,7 +201,7 @@ const EditProfil = () => {
                       onChange={handleFileChange}
                       style={{ display: "none" }}
                     />
-                    <p className="text-ubah" onClick={handleTextClick}>
+                    <p className="text-ubah mt-1" onClick={handleTextClick}>
                       Ubah foto profil
                     </p>
                   </span>

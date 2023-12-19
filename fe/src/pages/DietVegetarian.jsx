@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import NavbarAkun from "../components/NavbarAkun";
 
-const DietVegan = () => {
+const DietVegetarian = () => {
   const [recepts, setRecepts] = useState([]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const DietVegan = () => {
 
   const getRecepts = async () => {
     try {
-      axios.get('http://localhost:5000/vegan')
+      axios.get('http://localhost:5000/vegetarian')
       .then(res => setRecepts(res.data))
       .catch(err => console.log(err));
     } catch (error) {
@@ -34,7 +34,7 @@ const DietVegan = () => {
         titleH="Khusus"
         desk="Temukan resep yang sesuai kebutuhan mu!."
       />
-      <h2 className="bold text-center mb-3">Vegan</h2>
+      <h2 className="bold text-center mb-3">Vegetarian</h2>
       <section className="content-card-utama">
         <Row className="justify-content-center">
             {recepts.map((data, index) => (
@@ -53,4 +53,4 @@ const DietVegan = () => {
   );
 };
 
-export default DietVegan;
+export default DietVegetarian;
