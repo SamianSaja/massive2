@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
 import { Row, Container } from "react-bootstrap";
 import HeaderDetail from "../components/HeaderDetail";
 import Bagikan from "../components/Bagikan";
@@ -42,7 +41,6 @@ const DResep1 = () => {
       console.log(error);
     }
   };
-
 
   return (
     <>

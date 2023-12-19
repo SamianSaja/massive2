@@ -10,6 +10,8 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import HeaderDetail from "./components/HeaderDetail";
 import Resep from "./pages/Resep";
+import DietDiabetik from "./pages/DietDiabetik";
+import DietVegetarian from "./pages/DietVegetarian";
 import DietVegan from "./pages/DietVegan";
 import TipsTrik from "./pages/TipsTrik";
 import Inspirasi from "./pages/Inspirasi";
@@ -52,6 +54,7 @@ import EditArtikel from "./Admin/EditArtikel";
 import EditResep from "./Admin/EditResep";
 import EditTips from "./Admin/EditTips";
 import EditInspirasi from "./Admin/EditInspirasi";
+import EditDiet from "./Admin/EditDiet";
 
 function App() {
   return (
@@ -62,6 +65,8 @@ function App() {
         <Route path="/resep" element={<Resep />} />
         <Route path="/tips" element={<TipsTrik />} />
         <Route path="/inspirasi" element={<Inspirasi />} />
+        <Route path="/diabetik" element={<DietDiabetik />} />
+        <Route path="/vegetarian" element={<DietVegetarian />} />
         <Route path="/vegan" element={<DietVegan />} />
         <Route path="/syaratketentuan" element={<SyaratKetentuan />} />
         <Route path="/kebijakanprivasi" element={<KebijakanPrivasi />} />
@@ -75,7 +80,7 @@ function App() {
 
         <Route path="/dinspirasi/:uuid" element={<DInspirasi1 />} />
 
-        <Route path="/dvegan1" element={<DVegan1 />} />
+        <Route path="/dvegan/:uuid" element={<DVegan1 />} />
 
         {/* ===NEW=== */}
         <Route path="/login" Component={LoginPages} />
@@ -89,7 +94,7 @@ function App() {
         <Route path="/homeakun" Component={HomeAfterLogin} />
         <Route path="/editprofil" Component={EditProfil} />
         <Route path="/password" Component={PasswordPages} />
-        <Route path="/tersimpan" Component={TersimpanPages} />
+        <Route path="/tersimpan/:user_id" Component={TersimpanPages} />
 
         {/* routing halaman admin */}
         <Route path="/tambahartikel" Component={TambahArtikel} />
@@ -106,6 +111,7 @@ function App() {
         <Route path="/editresep/:uuid" Component={EditResep} />
         <Route path="/edittips/:uuid" Component={EditTips} />
         <Route path="/editins/:uuid" Component={EditInspirasi} />
+        <Route path="/editdiet/:uuid" Component={EditDiet} />
 
 
 

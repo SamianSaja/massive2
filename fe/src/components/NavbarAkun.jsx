@@ -56,10 +56,10 @@ const NavbarAkun = () => {
                 Inspirasi
               </NavLink>
               <NavDropdown title="Diet Khusus" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1" id="dropdown-item">
+                <NavDropdown.Item href="/diabetik" id="dropdown-item">
                   Diabetik
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2" id="dropdown-item">
+                <NavDropdown.Item href="/vegetarian" id="dropdown-item">
                   Vegetarian
                 </NavDropdown.Item>
                 <NavDropdown.Item href="/vegan" id="dropdown-item">
@@ -82,7 +82,7 @@ const NavbarAkun = () => {
               <div className="d-flex ms-auto gap-2">
                 <Link to="/editprofil" className="d-flex gap-2">
                   <img
-                    src="/img/imgprofil/imgprofil.png"
+                    src="/img/imgprofil/images.png"
                     alt="Aldi"
                     className="mt-2"
                     style={{ height: "35px", width: "35px" }}

@@ -12,7 +12,7 @@ const NavbarAkun = () => {
   useEffect(() => {
     refreshToken();
   },[]);
-
+  // console.log(name)
   const refreshToken = async () => {
     try {
       const response = await axios.get('http://localhost:5000/token');
@@ -20,8 +20,11 @@ const NavbarAkun = () => {
       const decoded = jwtDecode(response.data.accessToken);
       setResponse(response)
       // console.log(decoded)
-      setName(decoded.name);
+      setName(decoded.username);
       // setExpire(decoded.exp);
+      if(decoded.username!="adminkalt") {
+        navigate("/")
+      }
       this.response = response;
     } catch (error) {
       if(error.response) {
@@ -30,6 +33,7 @@ const NavbarAkun = () => {
       }
     }
   };
+  
 
   // kode modal logout start
   const [showLogoutConfirmationModal, setShowLogoutConfirmationModal] =

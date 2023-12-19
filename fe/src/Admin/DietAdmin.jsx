@@ -1,4 +1,5 @@
-import React from "react";
+import axios from 'axios';
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -20,6 +21,32 @@ const isitabel = [
   },
 ];
 const DietAdmin = () => {
+  const [recepts, setRecepts] = useState([]);
+
+  useEffect(() => {
+    getRecepts()
+  }, []);
+
+  const getRecepts = async () => {
+    try {
+      axios.get('http://localhost:5000/diet')
+      .then(res => setRecepts(res.data))
+      .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
+
+  const deleteResep = async (id) => {
+    try {
+        await axios.delete(`http://localhost:5000/diet/${id}`);
+        getRecepts();
+    } catch (error) {
+        console.log(error);
+    }
+  };
+
   return (
     <>
       <NavbarComponent />
@@ -70,31 +97,30 @@ const DietAdmin = () => {
                     <tr>
                       <th style={{ width: "12%" }}>Nama</th>
                       <th style={{ width: "10%" }}>Kategori</th>
-                      <th style={{ width: "30%" }}>Jenis</th>
+                      {/* <th style={{ width: "30%" }}>Jenis</th> */}
                       <th style={{ width: "20%" }}>Gambar</th>
                       <th style={{ width: "15%" }}>Pilihan</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {isitabel.map((diet) => (
-                      <tr key={diet.id}>
-                        <td>{diet.nama}</td>
-                        <td>{diet.kategori}</td>
-                        <td className="">{diet.desc}</td>
+                    {recepts.map((resep) => (
+                      <tr key={resep.uuid}>
+                        <td>{resep.food_name}</td>
+                        <td>{resep.category}</td>
                         <td>
                           <img
-                            src={diet.img}
+                            src={`http://localhost:5000/${resep.img}`}
                             alt="Gambar Contoh"
                             style={{
-                              width: "150px",
-                              height: "100px",
+                              width: "160px",
+                              height: "110px",
                               borderRadius: "10px",
                             }}
                           />
                         </td>
                         <td className="button">
-                          <button className="btn btn-primary px-3">Edit</button>
-                          <button className="btn btn-danger ms-lg-2 px-3 bg-danger">
+                          <Link to={`/editdiet/${resep.uuid}`} className="btn btn-primary px-3">Edit</Link>
+                          <button onClick={() => deleteResep(resep.uuid)} className="btn btn-danger ms-lg-2 px-3 bg-danger">
                             Hapus
                           </button>
                         </td>

@@ -5,18 +5,6 @@ import { Link } from "react-router-dom";
 import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const isitabel = [
-  {
-    id: 1,
-    nama: "Bubur Manado",
-    img: "/img/resep/1.png",
-  },
-  {
-    id: 2,
-    nama: "Pepes Ikan Dori",
-    img: "/img/resep/2.png",
-  },
-];
 const ResepAdmin = () => {
   const [recepts, setRecepts] = useState([]);
 
