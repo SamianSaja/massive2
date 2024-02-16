@@ -1,10 +1,10 @@
-#Installation
+<h1>Installation</h1>
 npm install in folder "fe" and "be" <br>
 
-#Running
+<h1>Running</h1>
 Folder be: npm start
 Folder fe: npm run dev
 
-#Note
+<h1>Note</h1>
 login akun admin : username = admin, password = adminkalt
 export database .sql yang ada di folder be
