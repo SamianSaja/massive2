@@ -7,4 +7,4 @@ Folder fe: npm run dev
 
 <h1>Note</h1>
 login akun admin : username = admin, password = adminkalt
-export database .sql yang ada di folder be
+export database .sql which is in the folder be
